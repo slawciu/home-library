@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeLibraryWeb", "HomeLibra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeLibrary.Tests", "HomeLibrary.Tests\HomeLibrary.Tests.csproj", "{2F58E39F-89C5-4301-AF75-8F40D301F723}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeLib.Api", "HomeLib.Api\HomeLib.Api.csproj", "{327F7157-EDC8-4C60-B3E6-E7C1CC9A2A4F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeLibrary.Api", "HomeLibrary.Api\HomeLibrary.Api.csproj", "{327F7157-EDC8-4C60-B3E6-E7C1CC9A2A4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
