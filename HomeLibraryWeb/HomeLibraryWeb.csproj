@@ -404,9 +404,9 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HomeLib.Api\HomeLib.Api.csproj">
+    <ProjectReference Include="..\HomeLibrary.Api\HomeLibrary.Api.csproj">
       <Project>{327F7157-EDC8-4C60-B3E6-E7C1CC9A2A4F}</Project>
-      <Name>HomeLib.Api</Name>
+      <Name>HomeLibrary.Api</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
