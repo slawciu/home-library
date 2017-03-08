@@ -1,0 +1,91 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.book-body {
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    padding-top: 1px;
+    padding-right: 10px;
+    margin-top: 5px;
+}
+
+.empty-book-body {
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    padding-top: 1px;
+    padding-right: 10px;
+    margin-top: 5px;
+    background-color: #778899;
+    color: white;
+}
+
+.book-entry-author {
+    text-align: right;
+}
+
+.book-date {
+    text-align: right;
+}
+
+.book-quantity {
+    text-align: left
+}
+
+.call-view {
+    background: #FF0029;
+    border-radius: 10px;
+    color: white;
+    padding: 10%;
+}
+
+.call-view-title {
+    text-align: center;
+}
+
+.single-caller {
+    text-align: center;
+}
+
+.new-tweet-view {
+    background:#5cb85c;
+    border-radius: 10px;
+    color: white;
+    padding: 1%;
+}
+
+.avatar {
+    border-radius: 50px;
+    width: 150%;
+}
+
+.member-name {
+    text-align: center;
+}
+
+.members {
+    margin-top: 10%;
+}
