@@ -2,7 +2,7 @@
 using Autofac;
 using Autofac.Integration.SignalR;
 using Autofac.Integration.WebApi;
-using HomeLib.Api.Hubs;
+using HomeLibrary.Api.Hubs;
 using Newtonsoft.Json;
 
 namespace HomeLibraryWeb
