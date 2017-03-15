@@ -18,6 +18,8 @@ import { COLOR, ThemeProvider, Toolbar } from 'react-native-material-ui';
 import BooksList from './app/BooksList'
 import BookDetails from './app/BookDetails'
 
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware, combineReduxers, compose } from 'redux'
 export default class HomeLibraryMobile extends Component {
   constructor(props) {
     super(props);
