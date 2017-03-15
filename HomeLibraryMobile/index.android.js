@@ -13,6 +13,7 @@ import {
   ToastAndroid
 } from 'react-native';
 import signalr from 'react-native-signalr';
+import { COLOR, ThemeProvider, Toolbar } from 'react-native-material-ui';
 
 export default class HomeLibraryMobile extends Component {
   constructor(props) {
@@ -67,13 +68,33 @@ export default class HomeLibraryMobile extends Component {
   
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Domowa Biblioteka</Text>
-        { this._renderHomeView() }
-      </View>
+      <ThemeProvider uiTheme={uiTheme}>
+         <View>
+         <Toolbar
+              leftElement="menu"
+              centerElement="Domowa Biblioteka"
+              searchable={{
+                  autoFocus: true,
+                  placeholder: 'Szukaj',
+              }}
+          />
+          { this._renderHomeView() }
+        </View>
+      </ThemeProvider>
     );
   }
 }
+
+const uiTheme = {
+    palette: {
+        primaryColor: COLOR.green500,
+    },
+    toolbar: {
+        container: {
+            height: 50,
+        },
+    },
+};
 
 const styles = StyleSheet.create({
   container: {
