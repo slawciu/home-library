@@ -7,7 +7,6 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet,
   Text,
   View,
   ToastAndroid,
@@ -57,18 +56,6 @@ export default class HomeLibraryMobile extends Component {
     });
   }
 
-  _renderHomeView() {
-    if (this.state.signalRconnected) {
-      return (
-        <View>
-          <Text>Połączono z serwerem :)</Text>
-          <Text>Stan biblioteki: { this.state.libraryState }</Text>
-        </View>)
-    } else {
-      return (<Text>Brak połączenia z serwerem :(</Text>)
-    }
-  }
-  
   _configureScene(route) {
     return route.animationType || Navigator.SceneConfigs.FloatFromRight;
   }
@@ -92,6 +79,7 @@ export default class HomeLibraryMobile extends Component {
     const routesArray = [
       { index: 'home', title: 'Domowa Biblioteka', page: BooksList }
     ];
+    
     return (
       <ThemeProvider uiTheme={uiTheme}>
         <Navigator
@@ -115,24 +103,5 @@ const uiTheme = {
         },
     },
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 AppRegistry.registerComponent('HomeLibraryMobile', () => HomeLibraryMobile);
