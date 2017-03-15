@@ -10,10 +10,13 @@ import {
   StyleSheet,
   Text,
   View,
-  ToastAndroid
+  ToastAndroid,
+  Navigator
 } from 'react-native';
 import signalr from 'react-native-signalr';
 import { COLOR, ThemeProvider, Toolbar } from 'react-native-material-ui';
+
+import BooksList from './app/BooksList'
 
 export default class HomeLibraryMobile extends Component {
   constructor(props) {
@@ -66,20 +69,37 @@ export default class HomeLibraryMobile extends Component {
     }
   }
   
+  _configureScene(route) {
+    return route.animationType || Navigator.SceneConfigs.FloatFromRight;
+  }
+
+  _renderScene(route, navigator) {
+    return ( 
+          <View>
+            <route.page route={route} navigator={navigator}/>
+          </View>
+      );
+  }
+
   render() {
+    const routes = {
+      home: {
+        Title: 'Domowa Biblioteka',
+        Page: BooksList
+      }
+    };
+
+    const routesArray = [
+      { index: 'home', title: 'Domowa Biblioteka', page: BooksList }
+    ];
     return (
       <ThemeProvider uiTheme={uiTheme}>
-         <View>
-         <Toolbar
-              leftElement="menu"
-              centerElement="Domowa Biblioteka"
-              searchable={{
-                  autoFocus: true,
-                  placeholder: 'Szukaj',
-              }}
-          />
-          { this._renderHomeView() }
-        </View>
+        <Navigator
+          configureScene={ this._configureScene }
+          initialRoute={ routesArray['home'] }
+          initialRouteStack={ routesArray }
+          renderScene={ this._renderScene }  
+        />
       </ThemeProvider>
     );
   }
