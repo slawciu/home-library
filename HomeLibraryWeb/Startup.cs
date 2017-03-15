@@ -2,7 +2,6 @@
 using System.Web.Http;
 using Autofac.Integration.SignalR;
 using Autofac.Integration.WebApi;
-using HomeLib.Api.Hubs;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
