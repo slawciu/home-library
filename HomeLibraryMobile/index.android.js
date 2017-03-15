@@ -16,6 +16,7 @@ import signalr from 'react-native-signalr';
 import { COLOR, ThemeProvider, Toolbar } from 'react-native-material-ui';
 
 import BooksList from './app/BooksList'
+import BookDetails from './app/BookDetails'
 
 export default class HomeLibraryMobile extends Component {
   constructor(props) {
@@ -69,22 +70,16 @@ export default class HomeLibraryMobile extends Component {
   }
 
   render() {
-    const routes = {
-      home: {
-        Title: 'Domowa Biblioteka',
-        Page: BooksList
-      }
-    };
-
     const routesArray = [
-      { index: 'home', title: 'Domowa Biblioteka', page: BooksList }
+      { index: 0, title: 'Domowa Biblioteka', page: BooksList },
+      { index: 1, title: 'Książka', page: BookDetails },    
     ];
-    
+
     return (
       <ThemeProvider uiTheme={uiTheme}>
         <Navigator
           configureScene={ this._configureScene }
-          initialRoute={ routesArray['home'] }
+          initialRoute={ routesArray[0] }
           initialRouteStack={ routesArray }
           renderScene={ this._renderScene }  
         />

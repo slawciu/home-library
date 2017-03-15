@@ -19,31 +19,32 @@ export default class BooksList extends Component {
     }
 
     _renderListItem (data) {
+        var routes = this.props.navigator.getCurrentRoutes();
         return (
             <ListItem key={ data.id }  
                 numberOfLines={2} 
                 leftElement={ <Text>{ data.localisation[0] }</Text>}
                 centerElement={ data.title } 
-                onPress={ () => {} }/>
+                onPress={ () => { this.props.navigator.push(routes[1])} }/>
         )
     }
 
     render () {
         return (<View>
-            <Toolbar
-              leftElement="menu"
-              centerElement={ this.props.route.title }
-              searchable={{
-                  autoFocus: true,
-                  placeholder: 'Szukaj',
-              }}
-            />
-            <View>
-                <ListView
-                    dataSource={ this.state.dataSource }
-                    renderRow={ this._renderListItem }
-                />
-             </View>
-        </View>)
+                    <Toolbar
+                        leftElement="menu"
+                        centerElement={ this.props.route.title }
+                        searchable={{
+                            autoFocus: true,
+                            placeholder: 'Szukaj',
+                        }}
+                    />
+                    <View>
+                        <ListView
+                            dataSource={ this.state.dataSource }
+                            renderRow={ this._renderListItem.bind(this) }
+                        />
+                    </View>
+                </View>)
     }
 }
