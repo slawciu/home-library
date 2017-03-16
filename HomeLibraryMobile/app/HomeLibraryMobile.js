@@ -8,11 +8,11 @@ import {
 } from 'react-native';
 import signalr from 'react-native-signalr';
 import { COLOR, ThemeProvider, Toolbar } from 'react-native-material-ui';
-
+import { connect } from 'react-redux'
 import BooksList from './BooksList'
 import BookDetails from './BookDetails'
 
-export default class HomeLibraryMobile extends Component {
+class HomeLibraryMobile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,25 +70,21 @@ export default class HomeLibraryMobile extends Component {
     ];
 
     return (
-      <ThemeProvider uiTheme={uiTheme}>
+      
         <Navigator
           configureScene={ this._configureScene }
           initialRoute={ routesArray[0] }
           initialRouteStack={ routesArray }
           renderScene={ this._renderScene }  
         />
-      </ThemeProvider>
     );
   }
 }
 
-const uiTheme = {
-    palette: {
-        primaryColor: COLOR.green500,
-    },
-    toolbar: {
-        container: {
-            height: 50,
-        },
-    },
-};
+function mapStateToProps(state) {
+    return {
+        selectedBook: state.selectedBook
+    }
+}
+
+export default connect(mapStateToProps)(HomeLibraryMobile);
