@@ -7,99 +7,24 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  Text,
-  View,
-  ToastAndroid,
-  Navigator
 } from 'react-native';
-import signalr from 'react-native-signalr';
-import { COLOR, ThemeProvider, Toolbar } from 'react-native-material-ui';
-
-import BooksList from './app/BooksList'
-import BookDetails from './app/BookDetails'
 
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, combineReduxers, compose } from 'redux'
+import reducer from './reducers'
 
-export default class HomeLibraryMobile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      signalRconnected: false,
-      libraryState: ''
-    }
-  }
+import AppContainer from './app/AppContainer'
 
-  componentDidMount() {
-    const connection = signalr.hubConnection('http://192.168.0.19:57123');
-    connection.logging = true;
-
-    const proxy = connection.createHubProxy('library');
-    proxy.on('updateLibraryState', (libraryState) => {
-      this.setState({ libraryState: libraryState });
-    });
-
-    connection.start().done(() => {
-      ToastAndroid.show('signalr connected', ToastAndroid.SHORT);
-      this.setState({ signalRconnected: true })
-      proxy.invoke('getLibraryState', 'Mobile')
-        .fail(() => {
-          ToastAndroid.show('getLibraryState fail', ToastAndroid.SHORT);
-        });
-    }).fail(() => {
-      ToastAndroid.show('signalr connection failed', ToastAndroid.SHORT);
-    });
-
-    connection.error((error) => {
-      const errorMessage = error.message;
-      let detailedError = '';
-      if (error.source && error.source._response) {
-        detailedError = error.source._response;
-      }
-      ToastAndroid.show('signalr connection failed'+ errorMessage, ToastAndroid.SHORT);
-    });
-  }
-
-  _configureScene(route) {
-    return route.animationType || Navigator.SceneConfigs.FloatFromRight;
-  }
-
-  _renderScene(route, navigator) {
-    return ( 
-          <View>
-            <route.page route={route} navigator={navigator}/>
-          </View>
-      );
-  }
-
-  render() {
-    const routesArray = [
-      { index: 0, title: 'Domowa Biblioteka', page: BooksList },
-      { index: 1, title: 'Książka', page: BookDetails },    
-    ];
-
-    return (
-      <ThemeProvider uiTheme={uiTheme}>
-        <Navigator
-          configureScene={ this._configureScene }
-          initialRoute={ routesArray[0] }
-          initialRouteStack={ routesArray }
-          renderScene={ this._renderScene }  
-        />
-      </ThemeProvider>
-    );
-  }
+function configureStore(initialState) {
+  return createStore(reducer, initialState);
 }
 
-const uiTheme = {
-    palette: {
-        primaryColor: COLOR.green500,
-    },
-    toolbar: {
-        container: {
-            height: 50,
-        },
-    },
-};
+const store = configureStore({});
 
-AppRegistry.registerComponent('HomeLibraryMobile', () => HomeLibraryMobile);
+const App = () => (
+  <Provider store={store}>
+    <AppContainer />
+  </Provider>
+);
+
+AppRegistry.registerComponent('HomeLibraryMobile', () => App);
