@@ -70,7 +70,6 @@ class HomeLibraryMobile extends Component {
     ];
 
     return (
-      
         <Navigator
           configureScene={ this._configureScene }
           initialRoute={ routesArray[0] }
