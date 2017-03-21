@@ -15,50 +15,20 @@ import BookDetails from './BookDetails'
 class HomeLibraryMobile extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      signalRconnected: false,
-      libraryState: ''
-    }
   }
 
   componentDidMount() {
-    const connection = signalr.hubConnection('http://192.168.0.19:57123');
-    connection.logging = true;
-
-    const proxy = connection.createHubProxy('library');
-    proxy.on('updateLibraryState', (libraryState) => {
-      this.setState({ libraryState: libraryState });
-    });
-
-    connection.start().done(() => {
-      ToastAndroid.show('signalr connected', ToastAndroid.SHORT);
-      this.setState({ signalRconnected: true })
-      proxy.invoke('getLibraryState', 'Mobile')
-        .fail(() => {
-          ToastAndroid.show('getLibraryState fail', ToastAndroid.SHORT);
-        });
-    }).fail(() => {
-      ToastAndroid.show('signalr connection failed', ToastAndroid.SHORT);
-    });
-
-    connection.error((error) => {
-      const errorMessage = error.message;
-      let detailedError = '';
-      if (error.source && error.source._response) {
-        detailedError = error.source._response;
-      }
-      ToastAndroid.show('signalr connection failed'+ errorMessage, ToastAndroid.SHORT);
-    });
+     this.props.connectToSignalR();
   }
 
   _configureScene(route) {
-    return route.animationType || Navigator.SceneConfigs.FloatFromRight;
+    return route.animationType || Navigator.SceneConfigs.FadeAndroid;
   }
 
   _renderScene(route, navigator) {
     return ( 
           <View>
-            <route.page route={route} navigator={navigator}/>
+            <route.page {...this.props} route={route} navigator={navigator} />
           </View>
       );
   }
@@ -69,12 +39,14 @@ class HomeLibraryMobile extends Component {
       { index: 1, title: 'Książka', page: BookDetails },    
     ];
 
+    // ToastAndroid.show(this.props.signalRState, ToastAndroid.SHORT);
+      
     return (
         <Navigator
           configureScene={ this._configureScene }
           initialRoute={ routesArray[0] }
           initialRouteStack={ routesArray }
-          renderScene={ this._renderScene }  
+          renderScene={ this._renderScene.bind(this) }  
         />
     );
   }
@@ -82,7 +54,9 @@ class HomeLibraryMobile extends Component {
 
 function mapStateToProps(state) {
     return {
-        selectedBook: state.selectedBook
+        selectedBook: state.selectedBook,
+        signalRState: state.signalRState,
+        libraryState: state.libraryState
     }
 }
 

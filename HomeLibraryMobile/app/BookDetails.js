@@ -4,11 +4,11 @@ import {
   View,
 } from 'react-native';
 import { Toolbar } from 'react-native-material-ui';
+import { connect } from 'react-redux'
 
-export default class BookDetails extends Component {
+class BookDetails extends Component {
     constructor(props) {
         super(props);
-        
     }
 
     render () {
@@ -18,9 +18,17 @@ export default class BookDetails extends Component {
                         centerElement={ this.props.route.title }
                         onLeftElementPress={ () => { this.props.navigator.pop() } }
                     />
-                    <Text>Tytuł: </Text>
-                    <Text>Autor: </Text>
+                    <Text>Tytuł: { this.props.book.title }</Text>
+                    <Text>Autor: { this.props.book.author }</Text>
                     <Text>ISBN: </Text>
                 </View>)
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        book: state.selectedBook
+    }
+}
+
+export default connect(mapStateToProps)(BookDetails);
