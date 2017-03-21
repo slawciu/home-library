@@ -5,17 +5,11 @@ import {
   ListView
 } from 'react-native';
 import { Toolbar, ListItem } from 'react-native-material-ui';
+import { connect } from 'react-redux'
 
-export default class BooksList extends Component {
+class BooksList extends Component {
     constructor(props) {
         super(props);
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.state = {
-        dataSource: ds.cloneWithRows([
-                { id: 0, title: 'Gra Endera', localisation: 'Gliwice'},
-                { id: 1, title: 'Cień Endera', localisation: 'Gliwice'}
-            ])
-        };
     }
 
     _renderListItem (data) {
@@ -25,11 +19,15 @@ export default class BooksList extends Component {
                 numberOfLines={2} 
                 leftElement={ <Text>{ data.localisation[0] }</Text>}
                 centerElement={ data.title } 
-                onPress={ () => { this.props.navigator.push(routes[1])} }/>
+                onPress={ () => {
+                    this.props.selectBook(data.id);
+                    this.props.navigator.push(routes[1]);}
+                }/>
         )
     }
 
     render () {
+        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         return (<View>
                     <Toolbar
                         leftElement="menu"
@@ -41,10 +39,18 @@ export default class BooksList extends Component {
                     />
                     <View>
                         <ListView
-                            dataSource={ this.state.dataSource }
+                            dataSource={ ds.cloneWithRows(this.props.books) }
                             renderRow={ this._renderListItem.bind(this) }
                         />
                     </View>
                 </View>)
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        books: state.libraryState.books,
+    }
+}
+
+export default connect(mapStateToProps)(BooksList);
