@@ -9,6 +9,9 @@ export const selectedBook = createReducer({ author: '', title: ''}, {
 
 export const signalRState = createReducer('disconnected',{
     [types.SIGNALR_STATE_CHANGED](state, action){
+        if (action.signalRState === undefined) {
+            return 'disconnected';
+        }
         return action.signalRState;
     }
 })

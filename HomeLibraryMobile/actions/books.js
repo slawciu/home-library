@@ -7,7 +7,6 @@ export function selectBook(bookId) {
     return(dispatch, getState) => {
          dispatch(bookSelected(getState().books[bookId]))
     }
-    
 }
 
 export function bookSelected(book) {
