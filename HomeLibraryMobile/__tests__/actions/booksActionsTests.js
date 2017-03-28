@@ -1,18 +1,16 @@
 import * as types from '../../actions/types'
 import * as actions from '../../actions/books'
 
-jest.mock('signalr',() => {
-    return {};
-})
+jest.mock('../../lib/signalrClient');
 
 describe('books actions', () => {
     it('should select book', () => {
-        const bookId = 1;
+        const book = { id: 1 };
         const expectedAction = {
             type: types.SELECT_BOOK,
-            selectedBookId: 1
+            selectedBook: book
         }
-    })
 
-    expect(actions.selectBook(bookId)).toEqual(expectedAction);
+        expect(actions.bookSelected(book)).toEqual(expectedAction);
+    })
 })
