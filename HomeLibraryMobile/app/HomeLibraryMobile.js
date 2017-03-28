@@ -4,14 +4,20 @@ import {
   Text,
   View,
   ToastAndroid,
-  Navigator
+  Navigator,
+  BackAndroid
 } from 'react-native';
 import signalr from 'react-native-signalr';
-import { COLOR, ThemeProvider, Toolbar } from 'react-native-material-ui';
+import { COLOR, ThemeProvider, Toolbar, ActionButton } from 'react-native-material-ui';
 import { connect } from 'react-redux'
 import BooksList from './BooksList'
 import BookDetails from './BookDetails'
-
+import ScanIsbn from './ScanIsbn'
+const routesArray = [
+      { index: 0, title: 'Domowa Biblioteka', page: BooksList },
+      { index: 1, title: 'Książka', page: BookDetails }, 
+      { index: 2, title: 'Skan ISBN', page: ScanIsbn }   
+    ];
 class HomeLibraryMobile extends Component {
   constructor(props) {
     super(props);
@@ -27,17 +33,15 @@ class HomeLibraryMobile extends Component {
 
   _renderScene(route, navigator) {
     return ( 
-          <View>
+          <View style={{ flex: 1 }}>
             <route.page {...this.props} route={route} navigator={navigator} />
+            <ActionButton onPress={ () => { navigator.push({ index: 2, title: 'Skan ISBN', page: ScanIsbn } ); } }/>  
           </View>
       );
   }
 
   render() {
-    const routesArray = [
-      { index: 0, title: 'Domowa Biblioteka', page: BooksList },
-      { index: 1, title: 'Książka', page: BookDetails },    
-    ];
+    
 
     // ToastAndroid.show(this.props.signalRState, ToastAndroid.SHORT);
       
@@ -45,7 +49,6 @@ class HomeLibraryMobile extends Component {
         <Navigator
           configureScene={ this._configureScene }
           initialRoute={ routesArray[0] }
-          initialRouteStack={ routesArray }
           renderScene={ this._renderScene.bind(this) }  
         />
     );
