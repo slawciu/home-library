@@ -4,9 +4,12 @@ import {
   View,
   ListView
 } from 'react-native';
-import { Toolbar, ListItem } from 'react-native-material-ui';
+import { 
+    Toolbar,
+    ListItem,
+    ActionButton } from 'react-native-material-ui';
 import { connect } from 'react-redux'
-
+import { routesArray } from './routes.js'
 class BooksList extends Component {
     constructor(props) {
         super(props);
@@ -21,14 +24,14 @@ class BooksList extends Component {
                 centerElement={ data.title } 
                 onPress={ () => {
                     this.props.selectBook(data.id);
-                    this.props.navigator.push(routes[1]);}
+                    this.props.navigator.push(routesArray[1]);}
                 }/>
         )
     }
 
     render () {
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        return (<View>
+        return (<View >
                     <Toolbar
                         leftElement="menu"
                         centerElement={ this.props.route.title }
@@ -37,12 +40,13 @@ class BooksList extends Component {
                             placeholder: 'Szukaj',
                         }}
                     />
-                    <View>
+                    <View >
                         <ListView
                             dataSource={ ds.cloneWithRows(this.props.books) }
                             renderRow={ this._renderListItem.bind(this) }
                         />
                     </View>
+                     
                 </View>)
     }
 }
