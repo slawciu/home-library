@@ -1,5 +1,5 @@
 import * as types from './types'
-import signalr from 'react-native-signalr';
+import signalrClient from '../lib/signalrClient.js';
 
 let proxy = null;
 
@@ -34,7 +34,7 @@ export function getLibraryState(deviceName) {
 
 export function connectToSignalR() {
     return(dispatch, getState) => {
-        const connection = signalr.hubConnection('http://192.168.0.19:57123');
+        const connection = signalrClient.getSignalRConnection();
         connection.logging = true;
 
         proxy = connection.createHubProxy('library');
