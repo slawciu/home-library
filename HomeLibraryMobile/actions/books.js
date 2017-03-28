@@ -1,7 +1,7 @@
 import * as types from './types'
 import signalrClient from '../lib/signalrClient.js';
 
-let proxy = null;
+let proxy = undefined;
 
 export function selectBook(bookId) {
     return(dispatch, getState) => {
@@ -25,6 +25,9 @@ export function updateLibraryState({ libraryState }) {
 
 export function getLibraryState(deviceName) {
     return(dispatch, getState) => {
+        if (proxy === undefined) {
+            proxy = signalrClient.getSignalRProxy()
+        }
         proxy.invoke('getLibraryState', 'Mobile')
         .fail(() => {
           console.log('getLibraryState fail');
@@ -37,23 +40,23 @@ export function connectToSignalR() {
         const connection = signalrClient.getSignalRConnection();
         connection.logging = true;
 
-        proxy = connection.createHubProxy('library');
+        proxy = signalrClient.getSignalRProxy();
         proxy.on('updateLibraryState', (libraryState) => {
             dispatch(updateLibraryState({ libraryState: libraryState }))
         });
 
         connection.start()
-        .done(() => {
-            console.log('signalr connected');
-            dispatch(signalRStateChanged({ signalRState: 'connected' }));
-            proxy.invoke('getLibraryState', 'Mobile')
+            .done(() => {
+                console.log('signalr connected');
+                dispatch(signalRStateChanged({ signalRState: 'connected' }));
+                proxy.invoke('getLibraryState', 'Mobile')
+                .fail(() => {
+                    console.log('getLibraryState fail');
+                });
+            })
             .fail(() => {
-                console.log('getLibraryState fail');
+                console.log('signalr connection failed');
             });
-        })
-        .fail(() => {
-            console.log('signalr connection failed');
-        });
 
         connection.error((error) => {
             const errorMessage = error.message;
