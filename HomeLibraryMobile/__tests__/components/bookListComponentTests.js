@@ -25,8 +25,8 @@ it('renders correctly when library is empty', () => {
             }
         }}
     }
-  const tree = renderer.create(
-    <BooksList store={ store } books={[]}  navigator={navigator} route={ route }/>
+  renderer.create(
+    <BooksList store={ store } navigator={navigator} route={ route }/>
   );
 });
 
@@ -48,6 +48,6 @@ it('renders correctly with books in library', () => {
     
 
   const tree = renderer.create(
-    <BooksList store={ store } books={[]} navigator={navigator} route={ route }/>
+    <BooksList store={ store } navigator={navigator} route={ route }/>
   );
 });

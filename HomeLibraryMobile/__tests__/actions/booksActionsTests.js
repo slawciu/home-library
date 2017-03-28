@@ -2,7 +2,7 @@ import * as types from '../../actions/types'
 import * as actions from '../../actions/books'
 
 jest.mock('../../lib/signalrClient');
-
+const signalrClient = require('../../lib/signalrClient');
 describe('books actions', () => {
     it('should select book', () => {
         const book = { id: 1 };
@@ -12,5 +12,5 @@ describe('books actions', () => {
         }
 
         expect(actions.bookSelected(book)).toEqual(expectedAction);
-    })
+    });
 })
