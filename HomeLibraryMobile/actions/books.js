@@ -23,6 +23,13 @@ export function updateLibraryState({ libraryState }) {
     }
 }
 
+export function newBookInfoRceived({bookInfo}) {
+    return {
+        type: types.NEW_BOOK_RECEIVED,
+        newBook: bookInfo
+    }
+}
+
 export function getLibraryState(deviceName) {
     return(dispatch, getState) => {
         if (proxy === undefined) {
@@ -35,6 +42,19 @@ export function getLibraryState(deviceName) {
     }
 }
 
+export function isbnScanned(isbn) {
+    return(dispatch, getState) => {
+        if (proxy === undefined) {
+            proxy = signalrClient.getSignalRProxy()
+        }
+
+        proxy.invoke('isbnScanned', isbn)
+        .fail(() => {
+            console.log('isbnScanned fail');
+        });
+    }
+}
+
 export function connectToSignalR() {
     return(dispatch, getState) => {
         const connection = signalrClient.getSignalRConnection();
@@ -43,6 +63,10 @@ export function connectToSignalR() {
         proxy = signalrClient.getSignalRProxy();
         proxy.on('updateLibraryState', (libraryState) => {
             dispatch(updateLibraryState({ libraryState: libraryState }))
+        });
+
+        proxy.on('newBookInfo', (newBook) => {
+            dispatch(newBookInfoRceived({newBook}))
         });
 
         connection.start()

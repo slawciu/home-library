@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux'
 import Camera from 'react-native-camera';
+import NewBookForm from './NewBookForm';
+
 class ScanIsbn extends Component {
     constructor(props) {
         super(props);
@@ -23,6 +25,7 @@ class ScanIsbn extends Component {
 
     _onBarCodeRead (code) {
         ToastAndroid.show(code, ToastAndroid.SHORT);
+        this.props.navigator.push({ index: 3, title: 'Nowa książka', page: NewBookForm })
     }
 
      takePicture() {
@@ -41,7 +44,7 @@ class ScanIsbn extends Component {
                         }}
                         style={styles.preview}
                         aspect={Camera.constants.Aspect.fill}
-                        onBarCodeRead={ (event) => ToastAndroid.show(event.data, ToastAndroid.SHORT) }>
+                        onBarCodeRead={ (event) => this._onBarCodeRead(event.data) }>
                         <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
                     </Camera>
                 </View>)
