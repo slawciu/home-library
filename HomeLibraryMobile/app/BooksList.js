@@ -31,6 +31,13 @@ class BooksList extends Component {
 
     render () {
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        var booksLists = (<ListView
+                            dataSource={ ds.cloneWithRows(this.props.books) }
+                            renderRow={ this._renderListItem.bind(this) }
+                        />);
+        if (this.props.books.length === 0) {
+            booksLists = (<Text>Brak książek do wyświetlenia</Text>)
+        }
         return (<View >
                     <Toolbar
                         leftElement="menu"
@@ -40,11 +47,8 @@ class BooksList extends Component {
                             placeholder: 'Szukaj',
                         }}
                     />
-                    <View >
-                        <ListView
-                            dataSource={ ds.cloneWithRows(this.props.books) }
-                            renderRow={ this._renderListItem.bind(this) }
-                        />
+                    <View>
+                        { booksLists }
                     </View>
                      
                 </View>)

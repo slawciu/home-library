@@ -27,3 +27,9 @@ export const books = createReducer([], {
         return action.libraryState.books;
     }
 })
+
+export const newBook = createReducer({}, {
+    [types.NEW_BOOK_RECEIVED](state, action){
+        return action.newBook;
+    }
+})
