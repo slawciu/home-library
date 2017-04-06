@@ -23,7 +23,7 @@ export function updateLibraryState({ libraryState }) {
     }
 }
 
-export function newBookInfoRceived({bookInfo}) {
+export function newBookInfoReceived(bookInfo) {
     return {
         type: types.NEW_BOOK_RECEIVED,
         newBook: bookInfo
@@ -66,7 +66,7 @@ export function connectToSignalR() {
         });
 
         proxy.on('newBookInfo', (newBook) => {
-            dispatch(newBookInfoRceived({newBook}))
+            dispatch(newBookInfoReceived(newBook))
         });
 
         connection.start()
