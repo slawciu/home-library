@@ -25,6 +25,7 @@ class ScanIsbn extends Component {
 
     _onBarCodeRead (code) {
         ToastAndroid.show(code, ToastAndroid.SHORT);
+        this.props.isbnScanned(code);
         this.props.navigator.push({ index: 3, title: 'Nowa książka', page: NewBookForm })
     }
 

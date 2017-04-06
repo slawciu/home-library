@@ -26,7 +26,7 @@ class NewBookForm extends Component {
                     />
                     <Text>Tytuł: { this.state.title }</Text>
                     <Text>Autor: { this.state.author }</Text>
-                    <Text>ISBN: { this.state.author }</Text>
+                    <Text>ISBN: { this.state.isbn }</Text>
                 </View>)
     }
 }

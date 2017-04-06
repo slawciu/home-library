@@ -17,5 +17,11 @@ namespace HomeLibrary.Api.Hubs
                         }
             });
         }
+
+        public void IsbnScanned(string isbn)
+        {
+            Clients.Caller.newBookInfo(
+                new {id = -1, title = "Cieñ Olbrzyma", author = "Orson Scott Card", localisation = "Gliwice", isbn = isbn});
+        }
     }
 }
