@@ -33,3 +33,9 @@ export const newBook = createReducer({}, {
         return action.newBook;
     }
 })
+
+export const canProcessBarcode = createReducer(true, {
+    [types.BARCODE_PROCESSING](state, action) {
+        return action.canProcessBarcode;
+    }
+})

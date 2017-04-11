@@ -42,7 +42,21 @@ export function getLibraryState(deviceName) {
     }
 }
 
-export function isbnScanned(isbn) {
+export function blockBarcodeProcessing() {
+    return {
+        type: types.BARCODE_PROCESSING,
+        canProcessBarcode: false
+    }
+}
+
+export function unblockBarcodeProcessing() {
+    return {
+        type: types.BARCODE_PROCESSING,
+        canProcessBarcode: true
+    }
+}
+
+export function codeHasBeenScanned(isbn) {
     return(dispatch, getState) => {
         if (proxy === undefined) {
             proxy = signalrClient.getSignalRProxy()
@@ -66,6 +80,7 @@ export function connectToSignalR() {
         });
 
         proxy.on('newBookInfo', (newBook) => {
+            dispatch(unblockBarcodeProcessing());
             dispatch(newBookInfoReceived(newBook))
         });
 
