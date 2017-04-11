@@ -24,9 +24,13 @@ class ScanIsbn extends Component {
     }
 
     _onBarCodeRead (code) {
+        if (!this.props.canProcessBarcode) {
+            return;
+        }
+        this.props.blockBarcodeProcessing();
         ToastAndroid.show(code, ToastAndroid.SHORT);
-        this.props.isbnScanned(code);
-        this.props.navigator.push({ index: 3, title: 'Nowa książka', page: NewBookForm })
+        this.props.codeHasBeenScanned(code);
+        this.props.navigator.replace({ index: 3, title: 'Nowa książka', page: NewBookForm })
     }
 
      takePicture() {
@@ -70,4 +74,11 @@ const styles = StyleSheet.create({
     margin: 40
   }
 });
-export default connect()(ScanIsbn)
+
+function mapStateToProps(state) {
+    return {
+        canProcessBarcode: state.canProcessBarcode
+    }
+}
+
+export default connect(mapStateToProps)(ScanIsbn)
