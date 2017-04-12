@@ -19,10 +19,6 @@ class ScanIsbn extends Component {
             } );
     }
 
-    _onBackPressed() {
-        
-    }
-
     _onBarCodeRead (code) {
         if (!this.props.canProcessBarcode) {
             return;
@@ -33,14 +29,6 @@ class ScanIsbn extends Component {
         this.props.navigator.replace({ index: 3, title: 'Nowa książka', page: NewBookForm })
     }
 
-     takePicture() {
-    const options = {};
-    //options.location = ...
-    this.camera.capture({metadata: options})
-      .then((data) => console.log(data))
-      .catch(err => console.error(err));
-  }
-
     render () {
         return (<View style={styles.container}>
                     <Camera
@@ -50,7 +38,6 @@ class ScanIsbn extends Component {
                         style={styles.preview}
                         aspect={Camera.constants.Aspect.fill}
                         onBarCodeRead={ (event) => this._onBarCodeRead(event.data) }>
-                        <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
                     </Camera>
                 </View>)
     }
