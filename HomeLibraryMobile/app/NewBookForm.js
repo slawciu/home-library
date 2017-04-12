@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   Text,
+  TextInput,
   View,
   BackAndroid
 } from 'react-native';
@@ -31,9 +32,12 @@ class NewBookForm extends Component {
                         centerElement={ this.props.route.title }
                         onLeftElementPress={ () => { this.props.navigator.replace({ index: 2, title: 'Skan ISBN', page: ScanIsbn }) } }
                     />
-                    <Text>Tytuł: { this.state.title }</Text>
-                    <Text>Autor: { this.state.author }</Text>
-                    <Text>ISBN: { this.state.isbn }</Text>
+                    <Text>Tytuł:</Text>
+                    <TextInput onChangeText={ (text) => this.setState({ title: text })} value={ this.state.title } />
+                    <Text>Autor:</Text>
+                    <TextInput onChangeText={ (text) => this.setState({ author: text })} value={ this.state.author } />
+                    <Text>ISBN:</Text>
+                    <TextInput onChangeText={ (text) => this.setState({ isbn: text })} value={ this.state.isbn } />
                 </View>)
     }
 }
