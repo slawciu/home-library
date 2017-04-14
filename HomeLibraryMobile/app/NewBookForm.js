@@ -14,10 +14,10 @@ class NewBookForm extends Component {
         super(props);
 
         this.state = {
-            title: props.newBook.title,
-            author: props.newBook.author,
-            isbn: props.newBook.isbn
-        }
+                    title: '',
+                    author: '',
+                    isbn: ''
+                }
 
         BackAndroid.addEventListener('hardwareBackPress', () => {
                 this.props.navigator.replace({ index: 2, title: 'Skan ISBN', page: ScanIsbn });
@@ -33,11 +33,11 @@ class NewBookForm extends Component {
                         onLeftElementPress={ () => { this.props.navigator.replace({ index: 2, title: 'Skan ISBN', page: ScanIsbn }) } }
                     />
                     <Text>Tytuł:</Text>
-                    <TextInput onChangeText={ (text) => this.setState({ title: text })} value={ this.state.title } />
+                    <TextInput onChangeText={ (text) => this.setState({ title: text })} value={ this.state.title || this.props.newBook.title } />
                     <Text>Autor:</Text>
-                    <TextInput onChangeText={ (text) => this.setState({ author: text })} value={ this.state.author } />
+                    <TextInput onChangeText={ (text) => this.setState({ author: text })} value={ this.state.author || this.props.newBook.author } />
                     <Text>ISBN:</Text>
-                    <TextInput onChangeText={ (text) => this.setState({ isbn: text })} value={ this.state.isbn } />
+                    <TextInput onChangeText={ (text) => this.setState({ isbn: text })} value={ this.state.isbn || this.props.newBook.isbn } />
                 </View>)
     }
 }
