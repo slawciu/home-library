@@ -23,5 +23,10 @@ namespace HomeLibrary.Api.Hubs
             Clients.Caller.newBookInfo(
                 new {id = -1, title = "Cieñ Olbrzyma", author = "Orson Scott Card", localisation = "Gliwice", isbn = isbn});
         }
+
+        public void Test(string name, string message)
+        {
+            Clients.All.broadcastMessage(name, message);
+        }
     }
 }
