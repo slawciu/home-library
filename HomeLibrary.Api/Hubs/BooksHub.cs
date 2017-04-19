@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 
@@ -8,10 +9,10 @@ namespace HomeLibrary.Api.Hubs
     {
         public void GetLibraryState(string myIdentity)
         {
-            Clients.Caller.updateLibraryState(new
+            Clients.Caller.updateLibraryState(new LibraryState
             {
-                books = new object[]
-                        {
+                Books = new List<object>
+                {
                             new { id = 0, title= "Gra Endera", author = "Orson Scott Card", localisation= "Gliwice"},
                             new { id= 1, title= "Cieñ Endera", author = "Orson Scott Card", localisation= "Gliwice"}
                         }
