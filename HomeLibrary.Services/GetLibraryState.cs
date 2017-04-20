@@ -2,18 +2,21 @@
 {
     public class GetLibraryState : IQueryHandler<GetLibraryStateQuery, LibraryState>
     {
+        private readonly ILibraryRepository _libraryRepository;
+
+        public GetLibraryState(ILibraryRepository libraryRepository)
+        {
+            _libraryRepository = libraryRepository;
+        }
+
         public LibraryState Handle(GetLibraryStateQuery query)
         {
-            //new LibraryState
-            //{
-            //    Books = new List<BookInfo>
-            //    {
-            //        new BookInfo { Id = 0, Title = "Gra Endera", Author = "Orson Scott Card", Localisation = "Gliwice"},
-            //        new BookInfo { Id = 1, Title = "Cień Endera", Author = "Orson Scott Card", Localisation = "Gliwice"}
-            //    }
-            //}
+            var bookInfos = _libraryRepository.GetAllBooks();
 
-            return new LibraryState();
+            return new LibraryState
+            {
+                Books = bookInfos
+            };
         }
     }
 }
