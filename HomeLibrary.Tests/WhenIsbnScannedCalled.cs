@@ -10,25 +10,38 @@ namespace HomeLibrary.Tests
 {
     public class WhenIsbnScannedCalled
     {
+        private readonly BooksHub _booksHub;
+        private readonly Mock<IHubCallerConnectionContext<dynamic>> _clientsMock;
+
+        public WhenIsbnScannedCalled()
+        {
+            _booksHub = new BooksHub(new Mock<IQueryHandler<GetLibraryStateQuery, LibraryState>>().Object);
+            _clientsMock = new Mock<IHubCallerConnectionContext<dynamic>>();
+
+            _booksHub.Clients = _clientsMock.Object;
+        }
+
         [Fact]
         public void ShouldCallNewBookInfoWithBookInfo()
         {
             BookInfo receivedBook = null;
-            var hub = new BooksHub(new Mock<IQueryHandler<GetLibraryStateQuery, LibraryState>>().Object);
-            var mockClients = new Mock<IHubCallerConnectionContext<dynamic>>();
-
-            hub.Clients = mockClients.Object;
 
             dynamic caller = new ExpandoObject();
             caller.newBookInfo = new Action<BookInfo>((book) => {
                 receivedBook = book;
             });
 
-            mockClients.Setup(m => m.Caller).Returns((ExpandoObject)caller);
+            _clientsMock.Setup(m => m.Caller).Returns((ExpandoObject)caller);
 
-            hub.IsbnScanned("test");
+            _booksHub.IsbnScanned("test");
 
             Assert.NotNull(receivedBook);
+        }
+
+        [Fact]
+        public void ShouldCallFindBookQueryHandler()
+        {
+            throw new NotImplementedException();
         }
     }
 }
