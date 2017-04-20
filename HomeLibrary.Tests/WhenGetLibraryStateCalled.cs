@@ -37,7 +37,7 @@ namespace HomeLibrary.Tests
         [Fact]
         public void ShouldReturnListOfBooksInLibrary()
         {
-            IList<object> booksFromHub = new List<object>();
+            IList<BookInfo> booksFromHub = new List<BookInfo>();
             var hub = new BooksHub();
             var mockClients = new Mock<IHubCallerConnectionContext<dynamic>>();
 

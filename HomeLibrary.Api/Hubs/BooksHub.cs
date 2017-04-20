@@ -11,23 +11,18 @@ namespace HomeLibrary.Api.Hubs
         {
             Clients.Caller.updateLibraryState(new LibraryState
             {
-                Books = new List<object>
+                Books = new List<BookInfo>
                 {
-                            new { id = 0, title= "Gra Endera", author = "Orson Scott Card", localisation= "Gliwice"},
-                            new { id= 1, title= "Cieñ Endera", author = "Orson Scott Card", localisation= "Gliwice"}
-                        }
+                    new BookInfo { Id = 0, Title = "Gra Endera", Author = "Orson Scott Card", Localisation = "Gliwice"},
+                    new BookInfo { Id = 1, Title = "Cieñ Endera", Author = "Orson Scott Card", Localisation = "Gliwice"}
+                }
             });
         }
 
         public void IsbnScanned(string isbn)
         {
             Clients.Caller.newBookInfo(
-                new {id = -1, title = "Cieñ Olbrzyma", author = "Orson Scott Card", localisation = "Gliwice", isbn = isbn});
-        }
-
-        public void Test(string name, string message)
-        {
-            Clients.All.broadcastMessage(name, message);
+                new BookInfo { Id = -1, Title = "Cieñ Olbrzyma", Author = "Orson Scott Card", Localisation = "Gliwice", ISBN = isbn});
         }
     }
 }
