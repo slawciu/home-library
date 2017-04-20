@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace HomeLibrary.Api.Hubs
+namespace HomeLibrary.Services
 {
     public class LibraryState
     {
