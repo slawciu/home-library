@@ -107,6 +107,10 @@
       <Project>{327f7157-edc8-4c60-b3e6-e7c1cc9a2a4f}</Project>
       <Name>HomeLibrary.Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HomeLibrary.Services\HomeLibrary.Services.csproj">
+      <Project>{E1FA8BA6-766F-46A6-A05F-F310F669B5FE}</Project>
+      <Name>HomeLibrary.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

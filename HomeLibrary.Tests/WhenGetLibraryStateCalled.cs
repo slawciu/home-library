@@ -5,6 +5,7 @@ using System.Dynamic;
 using System.Linq;
 using Castle.Core.Internal;
 using HomeLibrary.Api.Hubs;
+using HomeLibrary.Services;
 using Microsoft.AspNet.SignalR.Hubs;
 using Moq;
 using Xunit;
@@ -17,7 +18,7 @@ namespace HomeLibrary.Tests
         public void ShouldCallLibraryStateUpdate()
         {
             bool sendCalled = false;
-            var hub = new BooksHub();
+            var hub = new BooksHub(new Mock<IQueryHandler<GetLibraryStateQuery, LibraryState>>().Object);
             var mockClients = new Mock<IHubCallerConnectionContext<dynamic>>();
 
             hub.Clients = mockClients.Object;
@@ -35,24 +36,48 @@ namespace HomeLibrary.Tests
         }
 
         [Fact]
-        public void ShouldReturnListOfBooksInLibrary()
+        public void ShouldReturnLibraryStateFromQueryHandler()
         {
-            IList<BookInfo> booksFromHub = new List<BookInfo>();
-            var hub = new BooksHub();
+            LibraryState libraryStateFromHub = null;
+            var getLibraryStateQueryMock = new Mock<IQueryHandler<GetLibraryStateQuery, LibraryState>>();
+
+            var expectedLibraryState = new LibraryState();
+            getLibraryStateQueryMock.Setup(x => x.Handle(It.IsAny<GetLibraryStateQuery>())).Returns(expectedLibraryState);
+
+            var hub = new BooksHub(getLibraryStateQueryMock.Object);
             var mockClients = new Mock<IHubCallerConnectionContext<dynamic>>();
 
             hub.Clients = mockClients.Object;
 
             dynamic caller = new ExpandoObject();
             caller.updateLibraryState = new Action<LibraryState>((libraryState) => {
-                booksFromHub = libraryState.Books;
+                libraryStateFromHub = libraryState;
             });
 
             mockClients.Setup(m => m.Caller).Returns((ExpandoObject)caller);
 
             hub.GetLibraryState("test");
 
-            Assert.True(booksFromHub.Any());
+            Assert.Equal(expectedLibraryState, libraryStateFromHub);
+        }
+
+        [Fact]
+        public void ShouldCallGetLibraryStateQueryHandler()
+        {
+            var getLibraryStateQueryHandlerMock = new Mock<IQueryHandler<GetLibraryStateQuery, LibraryState>>();
+            var hub = new BooksHub(getLibraryStateQueryHandlerMock.Object);
+            var mockClients = new Mock<IHubCallerConnectionContext<dynamic>>();
+
+            hub.Clients = mockClients.Object;
+
+            dynamic caller = new ExpandoObject();
+            caller.updateLibraryState = new Action<LibraryState>((libraryState) => { });
+
+            mockClients.Setup(m => m.Caller).Returns((ExpandoObject)caller);
+
+            hub.GetLibraryState("test");
+
+            getLibraryStateQueryHandlerMock.Verify(x => x.Handle(It.IsAny<GetLibraryStateQuery>()));
         }
     }
 }
