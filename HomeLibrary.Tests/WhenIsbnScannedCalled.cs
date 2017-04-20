@@ -10,25 +10,24 @@ namespace HomeLibrary.Tests
     public class WhenIsbnScannedCalled
     {
         [Fact]
-        public void ShouldCallNewBookInfo()
+        public void ShouldCallNewBookInfoWithBookInfo()
         {
-            bool sendCalled = false;
+            BookInfo receivedBook = null;
             var hub = new BooksHub();
             var mockClients = new Mock<IHubCallerConnectionContext<dynamic>>();
 
             hub.Clients = mockClients.Object;
 
-
             dynamic caller = new ExpandoObject();
-            caller.newBookInfo = new Action<object>((book) => {
-                sendCalled = true;
+            caller.newBookInfo = new Action<BookInfo>((book) => {
+                receivedBook = book;
             });
 
             mockClients.Setup(m => m.Caller).Returns((ExpandoObject)caller);
 
             hub.IsbnScanned("test");
 
-            Assert.True(sendCalled);
+            Assert.NotNull(receivedBook);
         }
     }
 }

@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Hubs\BookInfo.cs" />
     <Compile Include="Hubs\BooksHub.cs" />
     <Compile Include="Hubs\LibraryState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
