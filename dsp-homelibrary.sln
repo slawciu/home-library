@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeLibrary.Tests", "HomeLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeLibrary.Api", "HomeLibrary.Api\HomeLibrary.Api.csproj", "{327F7157-EDC8-4C60-B3E6-E7C1CC9A2A4F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeLibrary.Services", "HomeLibrary.Services\HomeLibrary.Services.csproj", "{E1FA8BA6-766F-46A6-A05F-F310F669B5FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{327F7157-EDC8-4C60-B3E6-E7C1CC9A2A4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{327F7157-EDC8-4C60-B3E6-E7C1CC9A2A4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{327F7157-EDC8-4C60-B3E6-E7C1CC9A2A4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1FA8BA6-766F-46A6-A05F-F310F669B5FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1FA8BA6-766F-46A6-A05F-F310F669B5FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1FA8BA6-766F-46A6-A05F-F310F669B5FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1FA8BA6-766F-46A6-A05F-F310F669B5FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,7 @@
 using System;
 using System.Dynamic;
 using HomeLibrary.Api.Hubs;
+using HomeLibrary.Services;
 using Microsoft.AspNet.SignalR.Hubs;
 using Moq;
 using Xunit;
@@ -13,7 +14,7 @@ namespace HomeLibrary.Tests
         public void ShouldCallNewBookInfoWithBookInfo()
         {
             BookInfo receivedBook = null;
-            var hub = new BooksHub();
+            var hub = new BooksHub(new Mock<IQueryHandler<GetLibraryStateQuery, LibraryState>>().Object);
             var mockClients = new Mock<IHubCallerConnectionContext<dynamic>>();
 
             hub.Clients = mockClients.Object;
