@@ -13,7 +13,7 @@ namespace HomeLibrary.Services.Tests
         [Fact]
         public void ShouldReturnLibraryState()
         {
-            var getLibraryState = new GetLibraryState();
+            var getLibraryState = new GetLibraryState(new Mock<ILibraryRepository>().Object);
 
             var libraryState = getLibraryState.Handle(new GetLibraryStateQuery());
 
@@ -24,11 +24,21 @@ namespace HomeLibrary.Services.Tests
         public void ShouldRetrieveBookListFromRepository()
         {
             var libraryRepository = new Mock<ILibraryRepository>();
-            var getLibraryState = new GetLibraryState();
 
-            getLibraryState.Handle(new GetLibraryStateQuery());
+            libraryRepository.Setup(x => x.GetAllBooks()).Returns(new List<BookInfo>
+            {
+                new BookInfo
+                {
+                    ISBN = "1234567890123"
+                }
+            });
 
-            libraryRepository.Verify(x => x.GetAllBooks());
+
+            var getLibraryState = new GetLibraryState(libraryRepository.Object);
+
+            var libraryState = getLibraryState.Handle(new GetLibraryStateQuery());
+
+            Assert.Collection(libraryState.Books, x => Assert.True(x.ISBN == "1234567890123"));
         }
     }
 }

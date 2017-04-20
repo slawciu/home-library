@@ -45,6 +45,7 @@
     <Compile Include="GetLibraryStateQuery.cs" />
     <Compile Include="ILibraryRepository.cs" />
     <Compile Include="IQueryHandler.cs" />
+    <Compile Include="LibraryRepository.cs" />
     <Compile Include="LibraryState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
