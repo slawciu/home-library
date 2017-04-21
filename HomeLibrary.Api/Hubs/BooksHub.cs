@@ -8,23 +8,27 @@ namespace HomeLibrary.Api.Hubs
     [HubName("library")]
     public class BooksHub : Hub
     {
-        private readonly IQueryHandler<GetLibraryStateQuery, LibraryState> _getLibraryStateQuery;
+        private readonly IQueryHandler<GetLibraryStateQuery, LibraryState> _getLibraryStateQueryHandler;
+        private readonly IQueryHandler<FindBookQuery, IList<BookInfo>> _findBookQueryHandler;
 
-        public BooksHub(IQueryHandler<GetLibraryStateQuery, LibraryState>  getLibraryStateQuery)
+        public BooksHub(IQueryHandler<GetLibraryStateQuery, LibraryState> getLibraryStateQueryHandler, IQueryHandler<FindBookQuery, IList<BookInfo>> findBookQueryHandler)
         {
-            _getLibraryStateQuery = getLibraryStateQuery;
+            _getLibraryStateQueryHandler = getLibraryStateQueryHandler;
+            _findBookQueryHandler = findBookQueryHandler;
         }
 
         public void GetLibraryState(string myIdentity)
         {
-            var libraryState = _getLibraryStateQuery.Handle(new GetLibraryStateQuery());
+            var libraryState = _getLibraryStateQueryHandler.Handle(new GetLibraryStateQuery());
             Clients.Caller.updateLibraryState(libraryState);
         }
 
         public void IsbnScanned(string isbn)
         {
-            Clients.Caller.newBookInfo(
-                new BookInfo { Id = -1, Title = "Cieñ Olbrzyma", Author = "Orson Scott Card", Localisation = "Gliwice", ISBN = isbn});
+            var bookInfos = _findBookQueryHandler.Handle(new FindBookQuery {ISBN = isbn});
+
+            Clients.Caller.newBookInfo(bookInfos);
+                // new BookInfo { Id = -1, Title = "Cieñ Olbrzyma", Author = "Orson Scott Card", Localisation = "Gliwice", ISBN = isbn});
         }
     }
 }

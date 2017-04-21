@@ -12,5 +12,10 @@ namespace HomeLibrary.Services
                 new BookInfo {Id = 1, Title = "Cień Endera", Author = "Orson Scott Card", Localisation = "Gliwice"}
             };
         }
+
+        public BookInfo FindBookWithGivenIsbn(string isbn)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace HomeLibrary.Tests
 
         public WhenGetLibraryStateCalled()
         {
-            _hub = new BooksHub(_getLibraryStateQueryHandlerMock.Object);
+            _hub = new BooksHub(_getLibraryStateQueryHandlerMock.Object, new Mock<IQueryHandler<FindBookQuery, IList<BookInfo>>>().Object);
             _hub.Clients = _mockClients.Object;
         }
 
