@@ -8,14 +8,14 @@ namespace HomeLibrary.Services
         {
             return new List<BookInfo>
             {
-                new BookInfo {Id = 0, Title = "Gra Endera", Author = "Orson Scott Card", Localisation = "Gliwice"},
-                new BookInfo {Id = 1, Title = "Cień Endera", Author = "Orson Scott Card", Localisation = "Gliwice"}
+                new BookInfo {Id = 0, Title = "Gra Endera", Author = "Orson Scott Card", Localisation = "Gliwice", ISBN = "9788376482514"},
+                new BookInfo {Id = 1, Title = "Cień Endera", Author = "Orson Scott Card", Localisation = "Gliwice", ISBN = "9788378397649"}
             };
         }
 
         public BookInfo FindBookWithGivenIsbn(string isbn)
         {
-            throw new System.NotImplementedException();
+            return new BookInfo {ISBN = isbn};
         }
     }
 }
