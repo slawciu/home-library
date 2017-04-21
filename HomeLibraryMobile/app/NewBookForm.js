@@ -33,11 +33,11 @@ class NewBookForm extends Component {
                         onLeftElementPress={ () => { this.props.navigator.replace({ index: 2, title: 'Skan ISBN', page: ScanIsbn }) } }
                     />
                     <Text>Tytuł:</Text>
-                    <TextInput onChangeText={ (text) => this.setState({ title: text })} value={ this.state.title || this.props.newBook.title } />
+                    <TextInput onChangeText={ (text) => this.setState({ title: text })} value={ this.state.title || this.props.newBook.Title } />
                     <Text>Autor:</Text>
-                    <TextInput onChangeText={ (text) => this.setState({ author: text })} value={ this.state.author || this.props.newBook.author } />
+                    <TextInput onChangeText={ (text) => this.setState({ author: text })} value={ this.state.author || this.props.newBook.Author } />
                     <Text>ISBN:</Text>
-                    <TextInput onChangeText={ (text) => this.setState({ isbn: text })} value={ this.state.isbn || this.props.newBook.isbn } />
+                    <TextInput onChangeText={ (text) => this.setState({ isbn: text })} value={ this.state.isbn || this.props.newBook.ISBN } />
                 </View>)
     }
 }

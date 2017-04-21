@@ -18,9 +18,9 @@ class BookDetails extends Component {
                         centerElement={ this.props.route.title }
                         onLeftElementPress={ () => { this.props.navigator.pop() } }
                     />
-                    <Text>Tytuł: { this.props.book.title }</Text>
-                    <Text>Autor: { this.props.book.author }</Text>
-                    <Text>ISBN: </Text>
+                    <Text>Tytuł: { this.props.book.Title }</Text>
+                    <Text>Autor: { this.props.book.Author }</Text>
+                    <Text>ISBN: { this.props.book.ISBN }</Text>
                 </View>)
     }
 }

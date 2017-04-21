@@ -18,12 +18,12 @@ class BooksList extends Component {
     _renderListItem (data) {
         var routes = this.props.navigator.getCurrentRoutes();
         return (
-            <ListItem key={ data.id }  
+            <ListItem key={ data.Id }  
                 numberOfLines={2} 
-                leftElement={ <Text>{ data.localisation[0] }</Text>}
-                centerElement={ data.title } 
+                leftElement={ <Text>{ data.Localisation[0] }</Text>}
+                centerElement={ data.Title } 
                 onPress={ () => {
-                    this.props.selectBook(data.id);
+                    this.props.selectBook(data.Id);
                     this.props.navigator.push(routesArray[1]);}
                 }/>
         )
@@ -57,7 +57,7 @@ class BooksList extends Component {
 
 function mapStateToProps(state) {
     return {
-        books: state.libraryState.books,
+        books: state.libraryState.Books,
     }
 }
 
