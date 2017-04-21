@@ -26,9 +26,7 @@ namespace HomeLibrary.Api.Hubs
         public void IsbnScanned(string isbn)
         {
             var bookInfos = _findBookQueryHandler.Handle(new FindBookQuery {ISBN = isbn});
-
             Clients.Caller.newBookInfo(bookInfos);
-                // new BookInfo { Id = -1, Title = "Cieñ Olbrzyma", Author = "Orson Scott Card", Localisation = "Gliwice", ISBN = isbn});
         }
     }
 }

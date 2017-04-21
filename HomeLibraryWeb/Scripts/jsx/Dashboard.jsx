@@ -2,7 +2,7 @@
     constructor(props) {
         super(props);
         this.state = {
-            libraryState: ":("
+            libraryState: { Books: [] }
         };
         this.sHub = null;
     }
@@ -37,10 +37,15 @@
     }
 
     render() {
+        var books = this.state.libraryState.Books.map(function(book) {
+            return (<li>{ book.Title }</li>);
+        });
         return (<div>
                     <h1>Domowa Biblioteka</h1>
                     <div>Gdzieś poniżej wyświetlimy książki...</div>
-                    <div>Stan biblioteki: { this.state.libraryState }</div>
+                    <ul>
+                        { books }
+                    </ul>
                 </div>);
     }
 };
