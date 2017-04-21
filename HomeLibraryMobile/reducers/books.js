@@ -16,7 +16,7 @@ export const signalRState = createReducer('disconnected',{
     }
 })
 
-export const libraryState = createReducer({books: []}, {
+export const libraryState = createReducer({Books: []}, {
     [types.UPDATE_LIBRARY_STATE](state, action){
         return action.libraryState;
     }
@@ -24,13 +24,13 @@ export const libraryState = createReducer({books: []}, {
 
 export const books = createReducer([], {
     [types.UPDATE_LIBRARY_STATE](state, action){
-        return action.libraryState.books;
+        return action.libraryState.Books;
     }
 })
 
-export const newBook = createReducer({}, {
+export const newBook = createReducer([], {
     [types.NEW_BOOK_RECEIVED](state, action){
-        return action.newBook;
+        return action.newBooks[0];
     }
 })
 
