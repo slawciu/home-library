@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Dynamic;
 using HomeLibrary.Api.Hubs;
 using HomeLibrary.Services;
@@ -12,36 +13,57 @@ namespace HomeLibrary.Tests
     {
         private readonly BooksHub _booksHub;
         private readonly Mock<IHubCallerConnectionContext<dynamic>> _clientsMock;
+        private readonly Mock<IQueryHandler<FindBookQuery, IList<BookInfo>>> _findBookQueryHandlerMock;
 
         public WhenIsbnScannedCalled()
         {
-            _booksHub = new BooksHub(new Mock<IQueryHandler<GetLibraryStateQuery, LibraryState>>().Object);
+            _findBookQueryHandlerMock = new Mock<IQueryHandler<FindBookQuery, IList<BookInfo>>>();
+
+            _booksHub = new BooksHub(new Mock<IQueryHandler<GetLibraryStateQuery, LibraryState>>().Object, _findBookQueryHandlerMock.Object);
             _clientsMock = new Mock<IHubCallerConnectionContext<dynamic>>();
 
             _booksHub.Clients = _clientsMock.Object;
         }
 
         [Fact]
-        public void ShouldCallNewBookInfoWithBookInfo()
+        public void ShouldCallFindBookQueryHandler()
         {
-            BookInfo receivedBook = null;
+            dynamic caller = new ExpandoObject();
+            caller.newBookInfo = new Action<IList<BookInfo>>((book) => { });
+
+            _clientsMock.Setup(m => m.Caller).Returns((ExpandoObject)caller);
+
+            _booksHub.IsbnScanned("9788375106626");
+
+            _findBookQueryHandlerMock.Verify(x => x.Handle(It.Is<FindBookQuery>(query => query.ISBN == "9788375106626")));
+        }
+
+        [Fact]
+        public void ShouldCallNewBookInfoWithFoundItems()
+        {
+            IList<BookInfo> foundBooks = new List<BookInfo>();
+
+            var expectedBooks = new List<BookInfo>
+            {
+                new BookInfo
+                {
+                    ISBN = "9788375106626"
+                }
+            };
 
             dynamic caller = new ExpandoObject();
-            caller.newBookInfo = new Action<BookInfo>((book) => {
-                receivedBook = book;
+            caller.newBookInfo = new Action<IList<BookInfo>>((books) =>
+            {
+                foundBooks = books;
             });
 
             _clientsMock.Setup(m => m.Caller).Returns((ExpandoObject)caller);
 
-            _booksHub.IsbnScanned("test");
+            _findBookQueryHandlerMock.Setup(x => x.Handle(It.Is<FindBookQuery>(query => query.ISBN == "9788375106626"))).Returns(expectedBooks);
 
-            Assert.NotNull(receivedBook);
-        }
+            _booksHub.IsbnScanned("9788375106626");
 
-        [Fact]
-        public void ShouldCallFindBookQueryHandler()
-        {
-            throw new NotImplementedException();
+            Assert.Equal(expectedBooks, foundBooks);
         }
     }
 }

@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookInfo.cs" />
+    <Compile Include="FindBook.cs" />
+    <Compile Include="FindBookQuery.cs" />
     <Compile Include="GetLibraryState.cs" />
     <Compile Include="GetLibraryStateQuery.cs" />
     <Compile Include="ILibraryRepository.cs" />
