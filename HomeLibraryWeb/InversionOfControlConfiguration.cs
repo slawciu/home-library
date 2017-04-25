@@ -31,6 +31,8 @@ namespace HomeLibraryWeb
         {
             var builder = new ContainerBuilder();
 
+            builder.RegisterType<Context>().AsImplementedInterfaces().InstancePerLifetimeScope();
+
             builder.RegisterType<LibraryRepository>().As<ILibraryRepository>();
 
             builder.RegisterType<GetLibraryState>().As<IQueryHandler<GetLibraryStateQuery, LibraryState>>();
