@@ -22,9 +22,9 @@ namespace HomeLibrary.Services.Tests
         {
             var libraryRepository = new Mock<ILibraryRepository>();
 
-            libraryRepository.Setup(x => x.GetAllBooks()).Returns(new List<BookInfo>
+            libraryRepository.Setup(x => x.GetAllBooks()).Returns(new List<Book>
             {
-                new BookInfo
+                new Book
                 {
                     ISBN = "1234567890123"
                 }

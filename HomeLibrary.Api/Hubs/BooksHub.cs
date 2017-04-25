@@ -10,9 +10,9 @@ namespace HomeLibrary.Api.Hubs
     public class BooksHub : Hub
     {
         private readonly IQueryHandler<GetLibraryStateQuery, LibraryState> _getLibraryStateQueryHandler;
-        private readonly IQueryHandler<FindBookQuery, IList<BookInfo>> _findBookQueryHandler;
+        private readonly IQueryHandler<FindBookQuery, IList<Book>> _findBookQueryHandler;
 
-        public BooksHub(IQueryHandler<GetLibraryStateQuery, LibraryState> getLibraryStateQueryHandler, IQueryHandler<FindBookQuery, IList<BookInfo>> findBookQueryHandler)
+        public BooksHub(IQueryHandler<GetLibraryStateQuery, LibraryState> getLibraryStateQueryHandler, IQueryHandler<FindBookQuery, IList<Book>> findBookQueryHandler)
         {
             _getLibraryStateQueryHandler = getLibraryStateQueryHandler;
             _findBookQueryHandler = findBookQueryHandler;

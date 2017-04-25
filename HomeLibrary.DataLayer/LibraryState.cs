@@ -4,6 +4,6 @@ namespace HomeLibrary.DataLayer
 {
     public class LibraryState
     {
-        public IList<BookInfo> Books { get; set; }
+        public IList<Book> Books { get; set; }
     }
 }

@@ -1,21 +1,33 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Contexts;
 
 namespace HomeLibrary.DataLayer
 {
     public class LibraryRepository : ILibraryRepository
     {
-        public IList<BookInfo> GetAllBooks()
+        private readonly IContext _context;
+
+        public LibraryRepository(IContext context)
         {
-            return new List<BookInfo>
+            _context = context;
+        }
+
+        public IList<Book> GetAllBooks()
+        {
+            return _context.Books.AsQueryable().ToList();
+
+            return new List<Book>
             {
-                new BookInfo {Id = 0, Title = "Gra Endera", Author = "Orson Scott Card", Localisation = "Gliwice", ISBN = "9788376482514"},
-                new BookInfo {Id = 1, Title = "Cień Endera", Author = "Orson Scott Card", Localisation = "Gliwice", ISBN = "9788378397649"}
+                new Book {Id = 0, Title = "Gra Endera", Author = "Orson Scott Card", Localisation = "Gliwice", ISBN = "9788376482514"},
+                new Book {Id = 1, Title = "Cień Endera", Author = "Orson Scott Card", Localisation = "Gliwice", ISBN = "9788378397649"}
             };
         }
 
-        public BookInfo FindBookWithGivenIsbn(string isbn)
+        public Book FindBookWithGivenIsbn(string isbn)
         {
-            return new BookInfo {ISBN = isbn};
+            return _context.Books.FirstOrDefault(x => x.ISBN == isbn);
+            return new Book {ISBN = isbn};
         }
     }
 }

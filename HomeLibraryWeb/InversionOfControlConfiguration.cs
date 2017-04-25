@@ -34,7 +34,7 @@ namespace HomeLibraryWeb
             builder.RegisterType<LibraryRepository>().As<ILibraryRepository>();
 
             builder.RegisterType<GetLibraryState>().As<IQueryHandler<GetLibraryStateQuery, LibraryState>>();
-            builder.RegisterType<FindBook>().As<IQueryHandler<FindBookQuery, IList<BookInfo>>>();
+            builder.RegisterType<FindBook>().As<IQueryHandler<FindBookQuery, IList<Book>>>();
 
             builder.RegisterHubs(typeof(BooksHub).Assembly);
 
