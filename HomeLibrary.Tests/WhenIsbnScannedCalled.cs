@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using HomeLibrary.Api.Hubs;
+using HomeLibrary.DataLayer;
 using HomeLibrary.Services;
 using Microsoft.AspNet.SignalR.Hubs;
 using Moq;

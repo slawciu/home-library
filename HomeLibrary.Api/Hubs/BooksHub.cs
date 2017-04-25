@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using HomeLibrary.DataLayer;
 using HomeLibrary.Services;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
