@@ -27,18 +27,18 @@ namespace HomeLibrary.Tests
         [Fact]
         public void ShouldCallLibraryStateUpdate()
         {
-            bool sendCalled = false;
+            var updateLibraryStateCalled = false;
             
             dynamic caller = new ExpandoObject();
             caller.updateLibraryState = new Action<object>((book) => {
-                sendCalled = true;
+                updateLibraryStateCalled = true;
             });
 
             _mockClients.Setup(m => m.Caller).Returns((ExpandoObject)caller);
 
             _hub.GetLibraryState("test");
 
-            Assert.True(sendCalled);
+            Assert.True(updateLibraryStateCalled);
         }
 
         [Fact]
