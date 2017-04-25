@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace HomeLibrary.Services
+namespace HomeLibrary.DataLayer
 {
     public class LibraryState
     {

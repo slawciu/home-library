@@ -1,4 +1,6 @@
-﻿namespace HomeLibrary.Services
+﻿using HomeLibrary.DataLayer;
+
+namespace HomeLibrary.Services
 {
     public class GetLibraryState : IQueryHandler<GetLibraryStateQuery, LibraryState>
     {

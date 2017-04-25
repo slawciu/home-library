@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E1FA8BA6-766F-46A6-A05F-F310F669B5FE}</ProjectGuid>
+    <ProjectGuid>{53D6147B-8B9F-4699-97BC-C0C6FE700E36}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HomeLibrary.Services</RootNamespace>
-    <AssemblyName>HomeLibrary.Services</AssemblyName>
+    <RootNamespace>HomeLibrary.DataLayer</RootNamespace>
+    <AssemblyName>HomeLibrary.DataLayer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,18 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FindBook.cs" />
-    <Compile Include="FindBookQuery.cs" />
-    <Compile Include="GetLibraryState.cs" />
-    <Compile Include="GetLibraryStateQuery.cs" />
-    <Compile Include="IQueryHandler.cs" />
+    <Compile Include="BookInfo.cs" />
+    <Compile Include="ILibraryRepository.cs" />
+    <Compile Include="LibraryRepository.cs" />
+    <Compile Include="LibraryState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HomeLibrary.DataLayer\HomeLibrary.DataLayer.csproj">
-      <Project>{53d6147b-8b9f-4699-97bc-c0c6fe700e36}</Project>
-      <Name>HomeLibrary.DataLayer</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

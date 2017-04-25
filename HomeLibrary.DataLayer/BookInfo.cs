@@ -1,4 +1,4 @@
-namespace HomeLibrary.Services
+namespace HomeLibrary.DataLayer
 {
     public class BookInfo
     {

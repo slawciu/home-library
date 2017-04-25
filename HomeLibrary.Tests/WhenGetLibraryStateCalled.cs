@@ -5,6 +5,7 @@ using System.Dynamic;
 using System.Linq;
 using Castle.Core.Internal;
 using HomeLibrary.Api.Hubs;
+using HomeLibrary.DataLayer;
 using HomeLibrary.Services;
 using Microsoft.AspNet.SignalR.Hubs;
 using Moq;
