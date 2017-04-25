@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Reflection;
 using Autofac;
 using Autofac.Integration.SignalR;
