@@ -4,7 +4,7 @@ namespace HomeLibrary.DataLayer
 {
     public interface ILibraryRepository
     {
-        IList<BookInfo> GetAllBooks();
-        BookInfo FindBookWithGivenIsbn(string isbn);
+        IList<Book> GetAllBooks();
+        Book FindBookWithGivenIsbn(string isbn);
     }
 }

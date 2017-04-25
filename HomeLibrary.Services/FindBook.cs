@@ -3,7 +3,7 @@ using HomeLibrary.DataLayer;
 
 namespace HomeLibrary.Services
 {
-    public class FindBook : IQueryHandler<FindBookQuery, IList<BookInfo>>
+    public class FindBook : IQueryHandler<FindBookQuery, IList<Book>>
     {
         private readonly ILibraryRepository _libraryRepository;
 
@@ -12,15 +12,15 @@ namespace HomeLibrary.Services
             _libraryRepository = libraryRepository;
         }
 
-        public IList<BookInfo> Handle(FindBookQuery query)
+        public IList<Book> Handle(FindBookQuery query)
         {
             var bookFromRepository = _libraryRepository.FindBookWithGivenIsbn(query.ISBN);
 
             if (bookFromRepository == null)
             {
-                return new List<BookInfo>
+                return new List<Book>
                 {
-                    new BookInfo
+                    new Book
                     {
                         Author = "",
                         ISBN = query.ISBN,
@@ -30,7 +30,7 @@ namespace HomeLibrary.Services
                 };
             }
 
-            return new List<BookInfo>
+            return new List<Book>
             {
                 bookFromRepository
             };
