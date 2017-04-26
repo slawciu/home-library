@@ -110,10 +110,17 @@
       <Project>{327f7157-edc8-4c60-b3e6-e7c1cc9a2a4f}</Project>
       <Name>HomeLibrary.Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HomeLibrary.DataLayer\HomeLibrary.DataLayer.csproj">
+      <Project>{53d6147b-8b9f-4699-97bc-c0c6fe700e36}</Project>
+      <Name>HomeLibrary.DataLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HomeLibrary.Services\HomeLibrary.Services.csproj">
       <Project>{E1FA8BA6-766F-46A6-A05F-F310F669B5FE}</Project>
       <Name>HomeLibrary.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

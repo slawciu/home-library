@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using HomeLibrary.Api.Hubs;
+using HomeLibrary.DataLayer;
 using HomeLibrary.Services;
 using Microsoft.AspNet.SignalR.Hubs;
 using Moq;
@@ -13,11 +14,11 @@ namespace HomeLibrary.Tests
     {
         private readonly BooksHub _booksHub;
         private readonly Mock<IHubCallerConnectionContext<dynamic>> _clientsMock;
-        private readonly Mock<IQueryHandler<FindBookQuery, IList<BookInfo>>> _findBookQueryHandlerMock;
+        private readonly Mock<IQueryHandler<FindBookQuery, IList<Book>>> _findBookQueryHandlerMock;
 
         public WhenIsbnScannedCalled()
         {
-            _findBookQueryHandlerMock = new Mock<IQueryHandler<FindBookQuery, IList<BookInfo>>>();
+            _findBookQueryHandlerMock = new Mock<IQueryHandler<FindBookQuery, IList<Book>>>();
 
             _booksHub = new BooksHub(new Mock<IQueryHandler<GetLibraryStateQuery, LibraryState>>().Object, _findBookQueryHandlerMock.Object);
             _clientsMock = new Mock<IHubCallerConnectionContext<dynamic>>();
@@ -29,7 +30,7 @@ namespace HomeLibrary.Tests
         public void ShouldCallFindBookQueryHandler()
         {
             dynamic caller = new ExpandoObject();
-            caller.newBookInfo = new Action<IList<BookInfo>>((book) => { });
+            caller.newBookInfo = new Action<IList<Book>>((book) => { });
 
             _clientsMock.Setup(m => m.Caller).Returns((ExpandoObject)caller);
 
@@ -41,18 +42,18 @@ namespace HomeLibrary.Tests
         [Fact]
         public void ShouldCallNewBookInfoWithFoundItems()
         {
-            IList<BookInfo> foundBooks = new List<BookInfo>();
+            IList<Book> foundBooks = new List<Book>();
 
-            var expectedBooks = new List<BookInfo>
+            var expectedBooks = new List<Book>
             {
-                new BookInfo
+                new Book
                 {
                     ISBN = "9788375106626"
                 }
             };
 
             dynamic caller = new ExpandoObject();
-            caller.newBookInfo = new Action<IList<BookInfo>>((books) =>
+            caller.newBookInfo = new Action<IList<Book>>((books) =>
             {
                 foundBooks = books;
             });

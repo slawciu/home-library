@@ -5,6 +5,7 @@ using System.Dynamic;
 using System.Linq;
 using Castle.Core.Internal;
 using HomeLibrary.Api.Hubs;
+using HomeLibrary.DataLayer;
 using HomeLibrary.Services;
 using Microsoft.AspNet.SignalR.Hubs;
 using Moq;
@@ -20,7 +21,7 @@ namespace HomeLibrary.Tests
 
         public WhenGetLibraryStateCalled()
         {
-            _hub = new BooksHub(_getLibraryStateQueryHandlerMock.Object, new Mock<IQueryHandler<FindBookQuery, IList<BookInfo>>>().Object);
+            _hub = new BooksHub(_getLibraryStateQueryHandlerMock.Object, new Mock<IQueryHandler<FindBookQuery, IList<Book>>>().Object);
             _hub.Clients = _mockClients.Object;
         }
 

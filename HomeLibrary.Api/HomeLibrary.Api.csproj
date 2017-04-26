@@ -77,6 +77,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HomeLibrary.DataLayer\HomeLibrary.DataLayer.csproj">
+      <Project>{53d6147b-8b9f-4699-97bc-c0c6fe700e36}</Project>
+      <Name>HomeLibrary.DataLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HomeLibrary.Services\HomeLibrary.Services.csproj">
       <Project>{E1FA8BA6-766F-46A6-A05F-F310F669B5FE}</Project>
       <Name>HomeLibrary.Services</Name>

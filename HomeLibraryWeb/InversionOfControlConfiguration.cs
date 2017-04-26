@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Reflection;
 using Autofac;
 using Autofac.Integration.SignalR;
 using Autofac.Integration.WebApi;
 using HomeLibrary.Api.Hubs;
+using HomeLibrary.DataLayer;
 using HomeLibrary.Services;
 using Newtonsoft.Json;
 
@@ -30,10 +32,12 @@ namespace HomeLibraryWeb
         {
             var builder = new ContainerBuilder();
 
+            builder.Register(c => new LibraryContextFactory().Create()).AsImplementedInterfaces().InstancePerLifetimeScope();
+
             builder.RegisterType<LibraryRepository>().As<ILibraryRepository>();
 
             builder.RegisterType<GetLibraryState>().As<IQueryHandler<GetLibraryStateQuery, LibraryState>>();
-            builder.RegisterType<FindBook>().As<IQueryHandler<FindBookQuery, IList<BookInfo>>>();
+            builder.RegisterType<FindBook>().As<IQueryHandler<FindBookQuery, IList<Book>>>();
 
             builder.RegisterHubs(typeof(BooksHub).Assembly);
 
