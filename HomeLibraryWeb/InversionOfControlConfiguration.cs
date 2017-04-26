@@ -32,7 +32,7 @@ namespace HomeLibraryWeb
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<Context>().AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.Register(c => new LibraryContextFactory().Create()).AsImplementedInterfaces().InstancePerLifetimeScope();
 
             builder.RegisterType<LibraryRepository>().As<ILibraryRepository>();
 
