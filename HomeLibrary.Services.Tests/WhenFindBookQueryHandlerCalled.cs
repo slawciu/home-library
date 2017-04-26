@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using HomeLibrary.DataLayer;
 using Moq;
 using Xunit;
 
@@ -21,7 +22,7 @@ namespace HomeLibrary.Services.Tests
         {
             var bookInfo = _findBook.Handle(new FindBookQuery {ISBN = "9788375106626" });
 
-            Assert.IsType<List<BookInfo>>(bookInfo);
+            Assert.IsType<List<Book>>(bookInfo);
         }
 
         [Fact]
@@ -35,7 +36,7 @@ namespace HomeLibrary.Services.Tests
         [Fact]
         public void ShouldReturnBookInfoFromRepositoryIfExists()
         {
-            var existingBook = new BookInfo
+            var existingBook = new Book
             {
                 Id = 1,
                 ISBN = "9788375106626",
@@ -72,13 +73,13 @@ namespace HomeLibrary.Services.Tests
             throw new NotImplementedException();
         }
 
-        private static void AssertIsEmpty(BookInfo bookInfo)
+        private static void AssertIsEmpty(Book book)
         {
-            Assert.Equal("", bookInfo.Author);
-            Assert.Equal("", bookInfo.Localisation);
-            Assert.Equal("", bookInfo.Title);
-            Assert.Equal(0, bookInfo.Id);
-            Assert.NotEqual("", bookInfo.ISBN);
+            Assert.Equal("", book.Author);
+            Assert.Equal("", book.Localisation);
+            Assert.Equal("", book.Title);
+            Assert.Equal(0, book.Id);
+            Assert.NotEqual("", book.ISBN);
         }
     }
 }

@@ -411,6 +411,10 @@
       <Project>{327F7157-EDC8-4C60-B3E6-E7C1CC9A2A4F}</Project>
       <Name>HomeLibrary.Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HomeLibrary.DataLayer\HomeLibrary.DataLayer.csproj">
+      <Project>{53D6147B-8B9F-4699-97BC-C0C6FE700E36}</Project>
+      <Name>HomeLibrary.DataLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HomeLibrary.Services\HomeLibrary.Services.csproj">
       <Project>{E1FA8BA6-766F-46A6-A05F-F310F669B5FE}</Project>
       <Name>HomeLibrary.Services</Name>

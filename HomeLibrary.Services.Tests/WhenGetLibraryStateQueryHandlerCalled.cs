@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using HomeLibrary.DataLayer;
 using Moq;
 using Xunit;
 
@@ -25,9 +22,9 @@ namespace HomeLibrary.Services.Tests
         {
             var libraryRepository = new Mock<ILibraryRepository>();
 
-            libraryRepository.Setup(x => x.GetAllBooks()).Returns(new List<BookInfo>
+            libraryRepository.Setup(x => x.GetAllBooks()).Returns(new List<Book>
             {
-                new BookInfo
+                new Book
                 {
                     ISBN = "1234567890123"
                 }
