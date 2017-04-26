@@ -52,6 +52,10 @@
       <Project>{53d6147b-8b9f-4699-97bc-c0c6fe700e36}</Project>
       <Name>HomeLibrary.DataLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HomeLibrary.GoogleApi\HomeLibrary.GoogleApi.csproj">
+      <Project>{242D3ED3-7991-4AE1-8533-1D4FC658BF84}</Project>
+      <Name>HomeLibrary.GoogleApi</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

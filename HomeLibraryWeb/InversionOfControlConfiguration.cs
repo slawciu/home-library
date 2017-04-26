@@ -4,6 +4,7 @@ using System.Reflection;
 using Autofac;
 using Autofac.Integration.SignalR;
 using Autofac.Integration.WebApi;
+using HomeLib.BooksInformationService;
 using HomeLibrary.Api.Hubs;
 using HomeLibrary.DataLayer;
 using HomeLibrary.Services;
@@ -32,7 +33,13 @@ namespace HomeLibraryWeb
         {
             var builder = new ContainerBuilder();
 
-            builder.Register(c => new LibraryContextFactory().Create()).AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.Register(x => 
+                new GoogleApiBooksInformationService(ConfigurationManager.AppSettings["GoogleApiKey"], ConfigurationManager.AppSettings["ApplicationName"]))
+                .AsImplementedInterfaces();
+
+            builder.Register(c => new LibraryContextFactory().Create())
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<LibraryRepository>().As<ILibraryRepository>();
 

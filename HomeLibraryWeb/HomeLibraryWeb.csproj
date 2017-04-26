@@ -415,6 +415,10 @@
       <Project>{53D6147B-8B9F-4699-97BC-C0C6FE700E36}</Project>
       <Name>HomeLibrary.DataLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HomeLibrary.GoogleApi\HomeLibrary.GoogleApi.csproj">
+      <Project>{242D3ED3-7991-4AE1-8533-1D4FC658BF84}</Project>
+      <Name>HomeLibrary.GoogleApi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HomeLibrary.Services\HomeLibrary.Services.csproj">
       <Project>{E1FA8BA6-766F-46A6-A05F-F310F669B5FE}</Project>
       <Name>HomeLibrary.Services</Name>
