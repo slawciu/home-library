@@ -3,7 +3,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace HomeLibrary.DataLayer
 {
-    internal class LibraryContextFactory : IDbContextFactory<Context>
+    public class LibraryContextFactory : IDbContextFactory<Context>
     {
         public Context Create()
         {

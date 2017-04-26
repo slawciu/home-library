@@ -20,7 +20,6 @@ namespace HomeLibrary.DataLayer
         public Book FindBookWithGivenIsbn(string isbn)
         {
             return _context.Books.FirstOrDefault(x => x.ISBN == isbn);
-            return new Book {ISBN = isbn};
         }
     }
 }

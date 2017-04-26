@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using HomeLib.BooksInformationService;
 using HomeLibrary.DataLayer;
 using Moq;
 using Xunit;
@@ -10,11 +11,13 @@ namespace HomeLibrary.Services.Tests
     {
         private readonly FindBook _findBook;
         private readonly Mock<ILibraryRepository> _libraryRepositoryMock;
+        private readonly Mock<IBooksInformationService> _googleApiServiceMock;
 
         public WhenFindBookQueryHandlerCalled()
         {
+            _googleApiServiceMock = new Mock<IBooksInformationService>();
             _libraryRepositoryMock = new Mock<ILibraryRepository>();
-            _findBook = new FindBook(_libraryRepositoryMock.Object);
+            _findBook = new FindBook(_libraryRepositoryMock.Object, _googleApiServiceMock.Object);
         }
 
         [Fact]
@@ -48,7 +51,7 @@ namespace HomeLibrary.Services.Tests
 
             var bookInfos = _findBook.Handle(new FindBookQuery { ISBN = "9788375106626" });
 
-            Assert.Collection(bookInfos, bookInfo => Assert.Equal(existingBook, bookInfo));
+            Assert.Contains(bookInfos, bookInfo => existingBook == bookInfo);
         }
 
         [Fact]
@@ -64,7 +67,28 @@ namespace HomeLibrary.Services.Tests
         [Fact]
         public void ShouldCallGoogleApiInOrderToFindBookWithGivenIsbn()
         {
-            throw new NotImplementedException();
+            _libraryRepositoryMock.Setup(x => x.FindBookWithGivenIsbn("9788375106626")).Returns(() => null);
+
+            _findBook.Handle(new FindBookQuery { ISBN = "9788375106626" });
+
+            _googleApiServiceMock.Verify(x => x.GetByIsbn("9788375106626"));
+        }
+
+        [Fact]
+        public void ShouldReturnBookFoundInGoogleApi()
+        {
+            _libraryRepositoryMock.Setup(x => x.FindBookWithGivenIsbn("9788375106626")).Returns(() => null);
+            var bookInformationFromApi = new BookInformation
+            {
+                ISBN = "9788375106626",
+                Title = "Diuna",
+                Author = "Frank Herbert"
+            };
+            _googleApiServiceMock.Setup(x => x.GetByIsbn("9788375106626")).Returns(bookInformationFromApi);
+
+            var handlerResults = _findBook.Handle(new FindBookQuery { ISBN = "9788375106626" });
+
+            Assert.Contains(handlerResults, book => bookInformationFromApi.Author == book.Author);
         }
 
         [Fact]
