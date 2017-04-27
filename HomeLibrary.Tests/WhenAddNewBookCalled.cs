@@ -35,6 +35,7 @@ namespace HomeLibrary.Tests
 
             dynamic caller = new ExpandoObject();
             caller.newBookAddedSuccessfully = new Action(() => {});
+            caller.failureWhileAddingNewBook = new Action(() => { });
             _mockClients.Setup(m => m.Caller).Returns((ExpandoObject)caller);
 
             _booksHub.AddNewBook(newBookRequest);
@@ -63,6 +64,29 @@ namespace HomeLibrary.Tests
             _booksHub.AddNewBook(newBookRequest);
 
             Assert.True(newBookAddedSuccessfullyCalled);
+        }
+
+        [Fact]
+        public void ShouldCallFailureWhileAddingNewBook()
+        {
+            var failureWhileAddingNewBookCalled = false;
+            _addNewBookQueryHandlerMock.Setup(
+                mock => mock.Handle(It.Is<AddNewBookQuery>(x => x.ISBN == "0123456789012"))).Returns(false);
+
+            var newBookRequest = new BookRequest
+            {
+                ISBN = "0123456789012"
+            };
+
+            dynamic caller = new ExpandoObject();
+            caller.failureWhileAddingNewBook = new Action(() => {
+                failureWhileAddingNewBookCalled = true;
+            });
+            _mockClients.Setup(m => m.Caller).Returns((ExpandoObject)caller);
+
+            _booksHub.AddNewBook(newBookRequest);
+
+            Assert.True(failureWhileAddingNewBookCalled);
         }
     }
 }
