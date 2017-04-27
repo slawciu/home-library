@@ -6,5 +6,6 @@ namespace HomeLibrary.DataLayer
     {
         IList<Book> GetAllBooks();
         Book FindBookWithGivenIsbn(string isbn);
+        void AddNewBook(Book book);
     }
 }

@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddNewBook.cs" />
     <Compile Include="AddNewBookQuery.cs" />
     <Compile Include="FindBook.cs" />
     <Compile Include="FindBookQuery.cs" />

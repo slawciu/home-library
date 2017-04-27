@@ -74,6 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WhenAddNewBookHandlerCalled.cs" />
     <Compile Include="WhenFindBookQueryHandlerCalled.cs" />
     <Compile Include="WhenGetLibraryStateQueryHandlerCalled.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

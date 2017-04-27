@@ -21,5 +21,10 @@ namespace HomeLibrary.DataLayer
         {
             return _context.Books.FirstOrDefault(x => x.ISBN == isbn);
         }
+
+        public void AddNewBook(Book book)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
