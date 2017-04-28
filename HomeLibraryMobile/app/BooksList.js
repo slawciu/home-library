@@ -10,6 +10,7 @@ import {
     ActionButton } from 'react-native-material-ui';
 import { connect } from 'react-redux'
 import { routesArray } from './routes.js'
+import ScanIsbn from './ScanIsbn.js'
 class BooksList extends Component {
     constructor(props) {
         super(props);
@@ -38,7 +39,7 @@ class BooksList extends Component {
         if (this.props.books.length === 0) {
             booksLists = (<Text>Brak książek do wyświetlenia</Text>)
         }
-        return (<View >
+        return (<View style={{ flex: 1}}>
                     <Toolbar
                         leftElement="menu"
                         centerElement={ this.props.route.title }
@@ -50,7 +51,7 @@ class BooksList extends Component {
                     <View>
                         { booksLists }
                     </View>
-                     
+                    <ActionButton onPress={ () => { this.props.navigator.push({ index: 2, title: 'Skan ISBN', page: ScanIsbn } ); } }/>  
                 </View>)
     }
 }

@@ -69,6 +69,19 @@ export function codeHasBeenScanned(isbn) {
     }
 }
 
+export function addNewBook(book) {
+    return(dispatch, getState) => {
+        if (proxy === undefined) {
+            proxy = signalrClient.getSignalRProxy()
+        }
+
+        proxy.invoke('addNewBook', { Author: book.author, ISBN: book.isbn, Title: book.title })
+        .fail(() => {
+            console.log('isbnScanned fail');
+        });
+    }
+}
+
 export function connectToSignalR() {
     return(dispatch, getState) => {
         const connection = signalrClient.getSignalRConnection();
@@ -82,6 +95,14 @@ export function connectToSignalR() {
         proxy.on('newBookInfo', (newBooks) => {
             dispatch(unblockBarcodeProcessing());
             dispatch(newBookInfoReceived({ newBooks: newBooks }))
+        });
+
+        proxy.on('newBookAddedSuccessfully', () => {
+            dispatch(getLibraryState('Mobile'));
+        });
+
+        proxy.on('failureWhileAddingNewBook', () => {
+
         });
 
         connection.start()

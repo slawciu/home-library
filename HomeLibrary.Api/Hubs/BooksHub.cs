@@ -34,11 +34,17 @@ namespace HomeLibrary.Api.Hubs
 
         public void AddNewBook(BookRequest newBookRequest)
         {
-            var bookAddedSuccessfully = _addNewBookQueryHandler.Handle(new AddNewBookQuery {ISBN = newBookRequest.ISBN});
+            if (string.IsNullOrEmpty(newBookRequest.ISBN))
+            {
+                Clients.Caller.failureWhileAddingNewBook();
+                return;
+            }
+
+            var bookAddedSuccessfully = _addNewBookQueryHandler.Handle(new AddNewBookQuery {ISBN = newBookRequest.ISBN, Author = newBookRequest.Author, Title = newBookRequest.Title});
 
             if (bookAddedSuccessfully)
             {
-                Clients.Caller.newBookAddedSuccessfully();
+                Clients.All.newBookAddedSuccessfully();
             }
             else
             {

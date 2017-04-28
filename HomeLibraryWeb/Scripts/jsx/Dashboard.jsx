@@ -12,6 +12,10 @@
 
         this.sHub = $.connection.library;
 
+        this.sHub.client.newBookAddedSuccessfully = function() {
+            this.sHub.server.getLibraryState("Maurice");
+        }.bind(this);
+
         this.sHub.client.updateLibraryState = function (libraryState) {
             this.setState((prevState, props) => {
                 return { libraryState: libraryState }
