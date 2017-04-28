@@ -26,7 +26,7 @@
         $.connection.hub.disconnected(function () {
             setTimeout(function () {
                 $.connection.hub.start().done(function() {
-                    this.sHub.server.GetLibraryState("Maurice");
+                    this.sHub.server.getLibraryState("Maurice");
                 }.bind(this));
             }.bind(this), 5000); // Restart connection after 5 seconds.
         });
