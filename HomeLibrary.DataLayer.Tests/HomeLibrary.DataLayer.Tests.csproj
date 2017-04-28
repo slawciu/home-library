@@ -84,6 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WhenAddBookCalled.cs" />
     <Compile Include="WhenFindBookCalled.cs" />
     <Compile Include="WhenGetBooksCalled.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

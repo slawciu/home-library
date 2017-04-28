@@ -8,18 +8,17 @@ namespace HomeLibrary.DataLayer.Tests
 {
     public class WhenFindBookCalled
     {
-        private readonly Mock<IContext> _contextMock;
         private readonly Mock<IDbSet<Book>> _booksDbSetMock;
-        private LibraryRepository _libraryRepository;
+        private readonly LibraryRepository _libraryRepository;
 
         public WhenFindBookCalled()
         {
-            _contextMock = new Mock<IContext>();
+            var contextMock = new Mock<IContext>();
             _booksDbSetMock = new Mock<IDbSet<Book>>();
 
-            _contextMock.Setup(x => x.Books).Returns(_booksDbSetMock.Object);
+            contextMock.Setup(x => x.Books).Returns(_booksDbSetMock.Object);
 
-            _libraryRepository = new LibraryRepository(_contextMock.Object);
+            _libraryRepository = new LibraryRepository(contextMock.Object);
         }
 
         [Fact]

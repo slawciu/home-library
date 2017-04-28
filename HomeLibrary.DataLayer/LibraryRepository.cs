@@ -22,9 +22,10 @@ namespace HomeLibrary.DataLayer
             return _context.Books.FirstOrDefault(x => x.ISBN == isbn);
         }
 
-        public void AddNewBook(Book book)
+        public int AddNewBook(Book book)
         {
-            throw new System.NotImplementedException();
+            _context.Books.Add(book);
+            return _context.SaveChanges();
         }
     }
 }
