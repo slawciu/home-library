@@ -12,6 +12,10 @@
 
         this.sHub = $.connection.library;
 
+        this.sHub.client.newBookAddedSuccessfully = function() {
+            this.sHub.server.getLibraryState("Maurice");
+        }.bind(this);
+
         this.sHub.client.updateLibraryState = function (libraryState) {
             this.setState((prevState, props) => {
                 return { libraryState: libraryState }
@@ -26,7 +30,7 @@
         $.connection.hub.disconnected(function () {
             setTimeout(function () {
                 $.connection.hub.start().done(function() {
-                    this.sHub.server.GetLibraryState("Maurice");
+                    this.sHub.server.getLibraryState("Maurice");
                 }.bind(this));
             }.bind(this), 5000); // Restart connection after 5 seconds.
         });

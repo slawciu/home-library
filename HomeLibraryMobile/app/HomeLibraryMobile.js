@@ -32,10 +32,11 @@ class HomeLibraryMobile extends Component {
   }
 
   _renderScene(route, navigator) {
+  
     return ( 
           <View style={{ flex: 1 }}>
             <route.page {...this.props} route={route} navigator={navigator} />
-            <ActionButton onPress={ () => { navigator.push({ index: 2, title: 'Skan ISBN', page: ScanIsbn } ); } }/>  
+            
           </View>
       );
   }

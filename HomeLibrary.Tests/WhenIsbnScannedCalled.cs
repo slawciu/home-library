@@ -20,7 +20,7 @@ namespace HomeLibrary.Tests
         {
             _findBookQueryHandlerMock = new Mock<IQueryHandler<FindBookQuery, IList<Book>>>();
 
-            _booksHub = new BooksHub(new Mock<IQueryHandler<GetLibraryStateQuery, LibraryState>>().Object, _findBookQueryHandlerMock.Object);
+            _booksHub = new BooksHub(new Mock<IQueryHandler<GetLibraryStateQuery, LibraryState>>().Object, _findBookQueryHandlerMock.Object, new Mock<IQueryHandler<AddNewBookQuery, bool>>().Object);
             _clientsMock = new Mock<IHubCallerConnectionContext<dynamic>>();
 
             _booksHub.Clients = _clientsMock.Object;

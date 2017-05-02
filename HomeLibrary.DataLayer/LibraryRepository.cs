@@ -21,5 +21,11 @@ namespace HomeLibrary.DataLayer
         {
             return _context.Books.FirstOrDefault(x => x.ISBN == isbn);
         }
+
+        public int AddNewBook(Book book)
+        {
+            _context.Books.Add(book);
+            return _context.SaveChanges();
+        }
     }
 }

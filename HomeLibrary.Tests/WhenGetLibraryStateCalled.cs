@@ -15,13 +15,13 @@ namespace HomeLibrary.Tests
 {
     public class WhenGetLibraryStateCalled
     {
-        private BooksHub _hub;
+        private readonly BooksHub _hub;
         private readonly Mock<IHubCallerConnectionContext<object>> _mockClients = new Mock<IHubCallerConnectionContext<dynamic>>();
         private readonly Mock<IQueryHandler<GetLibraryStateQuery, LibraryState>> _getLibraryStateQueryHandlerMock = new Mock<IQueryHandler<GetLibraryStateQuery, LibraryState>>();
 
         public WhenGetLibraryStateCalled()
         {
-            _hub = new BooksHub(_getLibraryStateQueryHandlerMock.Object, new Mock<IQueryHandler<FindBookQuery, IList<Book>>>().Object);
+            _hub = new BooksHub(_getLibraryStateQueryHandlerMock.Object, new Mock<IQueryHandler<FindBookQuery, IList<Book>>>().Object, new Mock<IQueryHandler<AddNewBookQuery, bool>>().Object);
             _hub.Clients = _mockClients.Object;
         }
 
