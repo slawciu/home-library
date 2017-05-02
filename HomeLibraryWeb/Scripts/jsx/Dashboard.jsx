@@ -4,19 +4,19 @@
         this.state = {
             libraryState: { Books: [] }
         };
-        this.sHub = null;
+        this.libraryHub = null;
     }
   
     componentDidMount() {
         $.connection.hub.url = "/signalr";
 
-        this.sHub = $.connection.library;
+        this.libraryHub = $.connection.library;
 
-        this.sHub.client.newBookAddedSuccessfully = function() {
-            this.sHub.server.getLibraryState("Maurice");
+        this.libraryHub.client.newBookAddedSuccessfully = function() {
+            this._refreshLibraryState();
         }.bind(this);
 
-        this.sHub.client.updateLibraryState = function (libraryState) {
+        this.libraryHub.client.updateLibraryState = function (libraryState) {
             this.setState((prevState, props) => {
                 return { libraryState: libraryState }
             });
@@ -24,20 +24,24 @@
         }.bind(this);
 
         $.connection.hub.start().done(function () {
-            this.sHub.server.getLibraryState("Maurice");
+            this._refreshLibraryState();
         }.bind(this));
 
         $.connection.hub.disconnected(function () {
             setTimeout(function () {
                 $.connection.hub.start().done(function() {
-                    this.sHub.server.getLibraryState("Maurice");
+                    this._refreshLibraryState();
                 }.bind(this));
             }.bind(this), 5000); // Restart connection after 5 seconds.
         });
 
         $.connection.hub.reconnected(function () {
-            this.sHub.server.getLibraryState("Maurice");
+            this._refreshLibraryState();
         }.bind(this));
+    }
+
+    _refreshLibraryState() {
+        this.libraryHub.server.getLibraryState("Maurice");
     }
 
     render() {
