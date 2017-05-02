@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using HomeLib.BooksInformationService;
 using HomeLibrary.DataLayer;
 using Moq;
@@ -12,12 +13,15 @@ namespace HomeLibrary.Services.Tests
         private readonly FindBook _findBook;
         private readonly Mock<ILibraryRepository> _libraryRepositoryMock;
         private readonly Mock<IBooksInformationService> _googleApiServiceMock;
+        private readonly Mock<IBooksInformationService> _ksiazkiOrgApiService;
 
         public WhenFindBookQueryHandlerCalled()
         {
             _googleApiServiceMock = new Mock<IBooksInformationService>();
+            _ksiazkiOrgApiService = new Mock<IBooksInformationService>();
             _libraryRepositoryMock = new Mock<ILibraryRepository>();
-            _findBook = new FindBook(_libraryRepositoryMock.Object, _googleApiServiceMock.Object);
+            var bookServices = new List<IBooksInformationService> { _googleApiServiceMock.Object, _ksiazkiOrgApiService.Object };
+            _findBook = new FindBook(_libraryRepositoryMock.Object, bookServices);
         }
 
         [Fact]
@@ -94,7 +98,11 @@ namespace HomeLibrary.Services.Tests
         [Fact]
         public void ShouldCallKsiazkiOrgApiInOrderToFindBookWithGivenIsbn()
         {
-            throw new NotImplementedException();
+            _libraryRepositoryMock.Setup(x => x.FindBookWithGivenIsbn("9788375106626")).Returns(() => null);
+
+            _findBook.Handle(new FindBookQuery { ISBN = "9788375106626" });
+
+            _ksiazkiOrgApiService.Verify(x => x.GetByIsbn("9788375106626"));
         }
 
         private static void AssertIsEmpty(Book book)

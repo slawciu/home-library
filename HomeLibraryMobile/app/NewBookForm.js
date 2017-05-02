@@ -8,6 +8,7 @@ import {
 import { Toolbar, ActionButton } from 'react-native-material-ui';
 import { connect } from 'react-redux'
 import BooksList from './BooksList'
+import ScanIsbn from './ScanIsbn'
 
 class NewBookForm extends Component {
     constructor(props) {

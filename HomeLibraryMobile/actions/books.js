@@ -5,7 +5,9 @@ let proxy = undefined;
 
 export function selectBook(bookId) {
     return(dispatch, getState) => {
-         dispatch(bookSelected(getState().books[bookId]))
+         var books = getState().books;
+         var selectedBook = books.find(function(book){ return book.Id === bookId});
+         dispatch(bookSelected(selectedBook))
     }
 }
 

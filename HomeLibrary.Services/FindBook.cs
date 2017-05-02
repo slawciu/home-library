@@ -8,12 +8,12 @@ namespace HomeLibrary.Services
     public class FindBook : IQueryHandler<FindBookQuery, IList<Book>>
     {
         private readonly ILibraryRepository _libraryRepository;
-        private readonly IBooksInformationService _booksInformationService;
+        private readonly IEnumerable<IBooksInformationService> _booksInformationServices;
 
-        public FindBook(ILibraryRepository libraryRepository, IBooksInformationService booksInformationService)
+        public FindBook(ILibraryRepository libraryRepository, IEnumerable<IBooksInformationService> booksInformationServices)
         {
             _libraryRepository = libraryRepository;
-            _booksInformationService = booksInformationService;
+            _booksInformationServices = booksInformationServices;
         }
 
         public IList<Book> Handle(FindBookQuery query)
@@ -27,11 +27,14 @@ namespace HomeLibrary.Services
                 foundBooks.Add(bookFromRepository);
             }
 
-            var bookInformation = _booksInformationService.GetByIsbn(query.ISBN);
-
-            if (bookInformation != null)
+            foreach (var booksInformationService in _booksInformationServices)
             {
-                foundBooks.Add(MapToBook(bookInformation));
+                var bookInformation = booksInformationService.GetByIsbn(query.ISBN);
+
+                if (bookInformation != null)
+                {
+                    foundBooks.Add(MapToBook(bookInformation));
+                }
             }
 
             if (!foundBooks.Any())

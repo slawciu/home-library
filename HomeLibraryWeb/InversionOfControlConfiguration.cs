@@ -33,9 +33,14 @@ namespace HomeLibraryWeb
         {
             var builder = new ContainerBuilder();
 
-            builder.Register(x => 
-                new GoogleApiBooksInformationService(ConfigurationManager.AppSettings["GoogleApiKey"], ConfigurationManager.AppSettings["ApplicationName"]))
-                .AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(typeof(KsiazkiOrgInformationService).Assembly)
+                .Where(x => x.Name.EndsWith("InformationService"))
+                .AsImplementedInterfaces()
+                .WithParameters(new[]
+                {
+                    new NamedParameter("apiKey", ConfigurationManager.AppSettings["GoogleApiKey"]),
+                    new NamedParameter("applicationName",  ConfigurationManager.AppSettings["ApplicationName"])
+                });
 
             builder.Register(c => new LibraryContextFactory().Create())
                 .AsImplementedInterfaces()
