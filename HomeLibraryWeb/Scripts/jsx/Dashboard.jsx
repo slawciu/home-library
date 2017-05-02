@@ -45,15 +45,9 @@
     }
 
     render() {
-        var books = this.state.libraryState.Books.map(function(book) {
-            return (<li>{ book.Title }</li>);
-        });
         return (<div>
                     <h1>Domowa Biblioteka</h1>
-                    <div>Gdzieś poniżej wyświetlimy książki...</div>
-                    <ul>
-                        { books }
-                    </ul>
+                    <BookList books={this.state.libraryState.Books}/>
                 </div>);
     }
 };
