@@ -14,6 +14,9 @@ import ScanIsbn from './ScanIsbn.js'
 class BooksList extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            searchText: ''
+        }
     }
 
     _renderListItem (data) {
@@ -32,11 +35,14 @@ class BooksList extends Component {
 
     render () {
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        var filteredBooks = this.props.books.filter(function(book,i) { 
+                    return this.state.searchText.length == 0 || book.Title.toLowerCase().indexOf(this.state.searchText.toLowerCase()) > -1 
+                }.bind(this));
         var booksLists = (<ListView
-                            dataSource={ ds.cloneWithRows(this.props.books) }
+                            dataSource={ ds.cloneWithRows(filteredBooks) }
                             renderRow={ this._renderListItem.bind(this) }
                         />);
-        if (this.props.books.length === 0) {
+        if (filteredBooks.length === 0) {
             booksLists = (<Text>Brak książek do wyświetlenia</Text>)
         }
         return (<View style={{ flex: 1}}>
@@ -46,6 +52,8 @@ class BooksList extends Component {
                         searchable={{
                             autoFocus: true,
                             placeholder: 'Szukaj',
+                            onChangeText: value => this.setState({ searchText: value }),
+                            onSearchClosed: () => this.setState({ searchText: ''})
                         }}
                     />
                     <View>
