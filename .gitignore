@@ -16,3 +16,4 @@ _[Ss]cripts
 *.dot[Cc]over
 PublishScripts
 .vs
+/HomeLibraryWeb/Web.config
