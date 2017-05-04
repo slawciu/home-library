@@ -8,6 +8,7 @@ using HomeLib.BooksInformationService;
 using HomeLibrary.Api.Hubs;
 using HomeLibrary.DataLayer;
 using HomeLibrary.Services;
+using HomeLibraryWeb.Configuration;
 using Newtonsoft.Json;
 
 namespace HomeLibraryWeb
@@ -38,8 +39,8 @@ namespace HomeLibraryWeb
                 .AsImplementedInterfaces()
                 .WithParameters(new[]
                 {
-                    new NamedParameter("apiKey", ConfigurationManager.AppSettings["GoogleApiKey"]),
-                    new NamedParameter("applicationName",  ConfigurationManager.AppSettings["ApplicationName"])
+                    new NamedParameter("apiKey", ApiKeysConfiguration.Instance.GoogleApiKey),
+                    new NamedParameter("applicationName",  ApiKeysConfiguration.Instance.ApplicationName)
                 });
 
             builder.Register(c => new LibraryContextFactory().Create())

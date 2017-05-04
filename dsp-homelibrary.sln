@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeLibraryWeb", "HomeLibraryWeb\HomeLibraryWeb.csproj", "{6B38164A-828E-424E-815A-A524E6AEA2B6}"
 EndProject
@@ -18,6 +18,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeLibrary.DataLayer.Tests", "HomeLibrary.DataLayer.Tests\HomeLibrary.DataLayer.Tests.csproj", "{B98FDCBF-57DF-4190-BDA1-193D976EB52A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeLibrary.GoogleApi", "HomeLibrary.GoogleApi\HomeLibrary.GoogleApi.csproj", "{242D3ED3-7991-4AE1-8533-1D4FC658BF84}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{0DD1046D-6AA7-4BAB-8C81-AFBCE0AF89BF}"
+	ProjectSection(SolutionItems) = preProject
+		Configuration\apiKeys.config = Configuration\apiKeys.config
+		Configuration\appSettings.config = Configuration\appSettings.config
+		connectionStrings.config = connectionStrings.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
