@@ -7,10 +7,15 @@
         var books = this.props.books.map(function(book) {
             return <BookListItem book={book} />;
         });
-        return (
-            <div>
-                { books }
-            </div>
-        );
+        
+        if (books.length > 0) {
+            return (
+                        <div>
+                            { books }
+                        </div>
+                    );
+        } else {
+            return (<div>Brak książek do wyświetlenia.</div>)
+        } 
     }
 };

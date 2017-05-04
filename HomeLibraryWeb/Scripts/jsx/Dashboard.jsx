@@ -2,7 +2,8 @@
     constructor(props) {
         super(props);
         this.state = {
-            libraryState: { Books: [] }
+            libraryState: { Books: [] },
+            filterText: ''
         };
         this.libraryHub = null;
     }
@@ -44,10 +45,21 @@
         this.libraryHub.server.getLibraryState("Maurice");
     }
 
+    _handleFilterChange(event) {
+        this.setState({ filterText: event.target.value })
+    }
+
     render() {
+        var filteredBooks = this.state.libraryState.Books.filter(function(book){
+            return this.state.filterText.length == 0 || book.Title.toLowerCase().indexOf(this.state.filterText.toLowerCase()) > -1 || book.Author.toLowerCase().indexOf(this.state.filterText.toLowerCase()) > -1
+        }.bind(this));
+
         return (<div>
                     <h1>Domowa Biblioteka</h1>
-                    <BookList books={this.state.libraryState.Books}/>
+                    <h3>Szukaj: 
+                    <input type="text" value={this.state.filterText} onChange={ this._handleFilterChange.bind(this) } />
+                    </h3>
+                    <BookList books={filteredBooks}/>
                 </div>);
     }
 };
