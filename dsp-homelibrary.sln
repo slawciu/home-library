@@ -22,8 +22,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{0DD1046D-6AA7-4BAB-8C81-AFBCE0AF89BF}"
 	ProjectSection(SolutionItems) = preProject
 		Configuration\apiKeys.config = Configuration\apiKeys.config
+		Configuration\apiKeys.sample.config = Configuration\apiKeys.sample.config
 		Configuration\appSettings.config = Configuration\appSettings.config
-		connectionStrings.config = connectionStrings.config
+		Configuration\connectionStrings.config = Configuration\connectionStrings.config
+		Configuration\connectionStrings.sample.config = Configuration\connectionStrings.sample.config
 	EndProjectSection
 EndProject
 Global
