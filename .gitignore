@@ -16,3 +16,5 @@ _[Ss]cripts
 *.dot[Cc]over
 PublishScripts
 .vs
+/Configuration/apiKeys.config
+/Configuration/connectionStrings.config

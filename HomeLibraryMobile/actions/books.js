@@ -5,7 +5,9 @@ let proxy = undefined;
 
 export function selectBook(bookId) {
     return(dispatch, getState) => {
-         dispatch(bookSelected(getState().books[bookId]))
+         var books = getState().books;
+         var selectedBook = books.find(function(book){ return book.Id === bookId});
+         dispatch(bookSelected(selectedBook))
     }
 }
 
@@ -23,10 +25,10 @@ export function updateLibraryState({ libraryState }) {
     }
 }
 
-export function newBookInfoReceived({ newBook }) {
+export function newBookInfoReceived({ newBooks }) {
     return {
         type: types.NEW_BOOK_RECEIVED,
-        newBook: newBook
+        newBooks: newBooks
     }
 }
 
@@ -69,6 +71,19 @@ export function codeHasBeenScanned(isbn) {
     }
 }
 
+export function addNewBook(book) {
+    return(dispatch, getState) => {
+        if (proxy === undefined) {
+            proxy = signalrClient.getSignalRProxy()
+        }
+
+        proxy.invoke('addNewBook', { Author: book.author, ISBN: book.isbn, Title: book.title })
+        .fail(() => {
+            console.log('isbnScanned fail');
+        });
+    }
+}
+
 export function connectToSignalR() {
     return(dispatch, getState) => {
         const connection = signalrClient.getSignalRConnection();
@@ -79,9 +94,17 @@ export function connectToSignalR() {
             dispatch(updateLibraryState({ libraryState: libraryState }))
         });
 
-        proxy.on('newBookInfo', (newBook) => {
+        proxy.on('newBookInfo', (newBooks) => {
             dispatch(unblockBarcodeProcessing());
-            dispatch(newBookInfoReceived({ newBook: newBook }))
+            dispatch(newBookInfoReceived({ newBooks: newBooks }))
+        });
+
+        proxy.on('newBookAddedSuccessfully', () => {
+            dispatch(getLibraryState('Mobile'));
+        });
+
+        proxy.on('failureWhileAddingNewBook', () => {
+
         });
 
         connection.start()

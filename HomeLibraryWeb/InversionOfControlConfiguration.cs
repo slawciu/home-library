@@ -1,8 +1,14 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Configuration;
+using System.Reflection;
 using Autofac;
 using Autofac.Integration.SignalR;
 using Autofac.Integration.WebApi;
+using HomeLib.BooksInformationService;
 using HomeLibrary.Api.Hubs;
+using HomeLibrary.DataLayer;
+using HomeLibrary.Services;
+using HomeLibraryWeb.Configuration;
 using Newtonsoft.Json;
 
 namespace HomeLibraryWeb
@@ -27,6 +33,25 @@ namespace HomeLibraryWeb
         private static IContainer BuildContainer()
         {
             var builder = new ContainerBuilder();
+
+            builder.RegisterAssemblyTypes(typeof(KsiazkiOrgInformationService).Assembly)
+                .Where(x => x.Name.EndsWith("InformationService"))
+                .AsImplementedInterfaces()
+                .WithParameters(new[]
+                {
+                    new NamedParameter("apiKey", ApiKeysConfiguration.Instance.GoogleApiKey),
+                    new NamedParameter("applicationName",  ApiKeysConfiguration.Instance.ApplicationName)
+                });
+
+            builder.Register(c => new LibraryContextFactory().Create())
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<LibraryRepository>().As<ILibraryRepository>();
+
+            builder.RegisterType<GetLibraryState>().As<IQueryHandler<GetLibraryStateQuery, LibraryState>>();
+            builder.RegisterType<FindBook>().As<IQueryHandler<FindBookQuery, IList<Book>>>();
+            builder.RegisterType<AddNewBook>().As<IQueryHandler<AddNewBookQuery, bool>>();
 
             builder.RegisterHubs(typeof(BooksHub).Assembly);
 
