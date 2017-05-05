@@ -17,7 +17,8 @@ class NewBookForm extends Component {
         this.state = {
                     title: '',
                     author: '',
-                    isbn: ''
+                    isbn: '',
+                    localisation: ''
                 }
 
         BackAndroid.addEventListener('hardwareBackPress', () => {
@@ -26,27 +27,21 @@ class NewBookForm extends Component {
             } );
     }
 
+    _getLatestValue(valueFromState, valueFromProps) {
+        if (valueFromState === '') {
+            return valueFromProps;
+        } else {
+            return valueFromState;
+        }
+    }
+
     _onSaveButtonPress () {
-        var title, author, isbn;
-        if (this.state.title === '') {
-            title = this.props.newBook.Title;
-        } else {
-            title = this.state.title;
-        }
+        var title = this._getLatestValue(this.state.title, this.props.newBook.Title);
+        var author = this._getLatestValue(this.state.author, this.props.newBook.Author);
+        var isbn = this._getLatestValue(this.state.isbn, this.props.newBook.ISBN);
+        var localisation = this._getLatestValue(this.state.localisation, this.props.newBook.Localisation);
 
-        if (this.state.author === '') {
-            author = this.props.newBook.Author;
-        } else {
-            author = this.state.author;
-        }
-
-        if (this.state.isbn === '') {
-            isbn = this.props.newBook.ISBN;
-        } else {
-            isbn = this.state.isbn;
-        }
-
-        this.props.addNewBook({title: title, author: author, isbn: isbn})
+        this.props.addNewBook({title: title, author: author, isbn: isbn, localisation: localisation})
         this.props.navigator.push({ index: 0, title: 'Domowa Biblioteka', page: BooksList });
     }
 
@@ -63,6 +58,8 @@ class NewBookForm extends Component {
                     <TextInput onChangeText={ (text) => this.setState({ author: text })} value={ this.state.author || this.props.newBook.Author } />
                     <Text>ISBN:</Text>
                     <TextInput onChangeText={ (text) => this.setState({ isbn: text })} value={ this.state.isbn || this.props.newBook.ISBN } />
+                    <Text>Lokalizacja:</Text>
+                    <TextInput onChangeText={ (text) => this.setState({ localisation: text })} value={ this.state.localisation || this.props.newBook.Localisation } />
                     <ActionButton icon='save' onPress={ () => this._onSaveButtonPress() }/>  
                 </View>)
     }

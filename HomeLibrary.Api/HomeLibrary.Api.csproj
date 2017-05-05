@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="BookRequest.cs" />
     <Compile Include="Hubs\BooksHub.cs" />
+    <Compile Include="IRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -77,7 +77,7 @@ export function addNewBook(book) {
             proxy = signalrClient.getSignalRProxy()
         }
 
-        proxy.invoke('addNewBook', { Author: book.author, ISBN: book.isbn, Title: book.title })
+        proxy.invoke('addNewBook', { Author: book.author, ISBN: book.isbn, Title: book.title, Localisation: book.localisation })
         .fail(() => {
             console.log('isbnScanned fail');
         });

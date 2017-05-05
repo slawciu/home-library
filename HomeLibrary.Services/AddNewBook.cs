@@ -17,7 +17,7 @@ namespace HomeLibrary.Services
             {
                 Author = query.Author,
                 Title = query.Title,
-                Localisation = "Gliwice",
+                Localisation = query.Localisation,
                 ISBN = query.ISBN
             });
 

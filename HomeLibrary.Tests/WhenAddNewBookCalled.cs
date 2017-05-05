@@ -26,10 +26,28 @@ namespace HomeLibrary.Tests
         }
 
         [Fact]
+        public void ShouldCheckIfRequestIsValid()
+        {
+            var newBookRequest = new Mock<BookRequest>();
+
+            dynamic caller = new ExpandoObject();
+            caller.newBookAddedSuccessfully = new Action(() => { });
+            caller.failureWhileAddingNewBook = new Action(() => { });
+            _mockClients.Setup(m => m.Caller).Returns((ExpandoObject)caller);
+
+            _booksHub.AddNewBook(newBookRequest.Object);
+
+            newBookRequest.Verify(x => x.IsValid());
+        }
+
+        [Fact]
         public void ShouldCallAddNewBookQueryHandler()
         {
             var newBookRequest = new BookRequest
             {
+                Author = "Author",
+                Title = "Title",
+                Localisation = "Gliwice",
                 ISBN = "0123456789012"
             };
 
@@ -52,7 +70,10 @@ namespace HomeLibrary.Tests
 
             var newBookRequest = new BookRequest
             {
-                ISBN = "0123456789012"
+                ISBN = "0123456789012",
+                Title = "Title",
+                Author = "Author",
+                Localisation = "Gliwice"
             };
 
             dynamic allClients = new ExpandoObject();
@@ -75,7 +96,10 @@ namespace HomeLibrary.Tests
 
             var newBookRequest = new BookRequest
             {
-                ISBN = "0123456789012"
+                ISBN = "0123456789012",
+                Title = "Title",
+                Author = "Author",
+                Localisation = "Gliwice"
             };
 
             dynamic caller = new ExpandoObject();
@@ -90,16 +114,14 @@ namespace HomeLibrary.Tests
         }
 
         [Fact]
-        public void ShouldCallFailureWhenPassedRequestWithEmptyIsbnNumber()
+        public void ShouldCallFailureWhenPassedInvalidRequest()
         {
             var failureWhileAddingNewBookCalled = false;
             _addNewBookQueryHandlerMock.Setup(
                 mock => mock.Handle(It.Is<AddNewBookQuery>(x => x.ISBN == "0123456789012"))).Returns(true);
 
-            var newBookRequest = new BookRequest
-            {
-                ISBN = ""
-            };
+            var newBookRequest = new Mock<BookRequest>();
+            newBookRequest.Setup(x => x.IsValid()).Returns(false);
 
             dynamic caller = new ExpandoObject();
             caller.failureWhileAddingNewBook = new Action(() => {
@@ -107,7 +129,7 @@ namespace HomeLibrary.Tests
             });
             _mockClients.Setup(m => m.Caller).Returns((ExpandoObject)caller);
 
-            _booksHub.AddNewBook(newBookRequest);
+            _booksHub.AddNewBook(newBookRequest.Object);
 
             Assert.True(failureWhileAddingNewBookCalled);
         }

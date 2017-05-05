@@ -21,6 +21,7 @@ class BookDetails extends Component {
                     <Text>Tytuł: { this.props.book.Title }</Text>
                     <Text>Autor: { this.props.book.Author }</Text>
                     <Text>ISBN: { this.props.book.ISBN }</Text>
+                    <Text>Lokalizacja: {this.props.book.Localisation}</Text>
                 </View>)
     }
 }

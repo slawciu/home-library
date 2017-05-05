@@ -92,6 +92,7 @@
     <Compile Include="WhenAddNewBookCalled.cs" />
     <Compile Include="WhenGetLibraryStateCalled.cs" />
     <Compile Include="WhenIsbnScannedCalled.cs" />
+    <Compile Include="WhenIsValidCalledOnBookRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

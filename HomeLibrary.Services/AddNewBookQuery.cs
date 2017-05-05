@@ -5,5 +5,6 @@ namespace HomeLibrary.Services
         public string Title;
         public string Author;
         public string ISBN;
+        public string Localisation;
     }
 }
