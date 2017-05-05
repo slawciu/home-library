@@ -18,3 +18,5 @@ PublishScripts
 .vs
 /Configuration/apiKeys.config
 /Configuration/connectionStrings.config
+/HomeLibraryMobile/.env
+/HomeLibraryMobile/.env.prod
