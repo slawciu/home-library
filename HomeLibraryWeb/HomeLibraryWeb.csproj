@@ -368,6 +368,7 @@
     </Content>
     <Content Include="..\Configuration\connectionStrings.config">
       <Link>Configuration\connectionStrings.config</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\PublishProfiles\HomeLibraryWeb20170306083707 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
