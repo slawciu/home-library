@@ -1,8 +1,10 @@
 import signalr from 'react-native-signalr';
+import Config from 'react-native-config'
+
 const connection = null;
 function getSignalRConnection() {
     if (connection === null) {
-        connection = signalr.hubConnection('http://192.168.0.19:57123')
+        connection = signalr.hubConnection(Config.SIGNALR_URL)
     }
     return connection
 }
