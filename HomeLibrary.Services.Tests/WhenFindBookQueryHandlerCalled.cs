@@ -48,8 +48,7 @@ namespace HomeLibrary.Services.Tests
                 Id = 1,
                 ISBN = "9788375106626",
                 Title = "Diuna",
-                Author = "Frank Herbert",
-                Localisation = "Gliwice"
+                //Author = "Frank Herbert"
             };
             _libraryRepositoryMock.Setup(x => x.FindBookWithGivenIsbn("9788375106626")).Returns(() => existingBook);
 
@@ -92,7 +91,7 @@ namespace HomeLibrary.Services.Tests
 
             var handlerResults = _findBook.Handle(new FindBookQuery { ISBN = "9788375106626" });
 
-            Assert.Contains(handlerResults, book => bookInformationFromApi.Author == book.Author);
+            Assert.Contains(handlerResults, book => bookInformationFromApi.Author == book.Author.Fullname);
         }
 
         [Fact]
@@ -107,11 +106,12 @@ namespace HomeLibrary.Services.Tests
 
         private static void AssertIsEmpty(Book book)
         {
-            Assert.Equal("", book.Author);
-            Assert.Equal("", book.Localisation);
-            Assert.Equal("", book.Title);
-            Assert.Equal(0, book.Id);
-            Assert.NotEqual("", book.ISBN);
+            throw new NotImplementedException();
+            //Assert.Equal("", book.Author);
+            //Assert.Equal("", book.Localisation);
+            //Assert.Equal("", book.Title);
+            //Assert.Equal(0, book.Id);
+            //Assert.NotEqual("", book.ISBN);
         }
     }
 }

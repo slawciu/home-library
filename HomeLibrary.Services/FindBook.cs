@@ -41,9 +41,8 @@ namespace HomeLibrary.Services
             {
                 foundBooks.Add(new Book
                 {
-                    Author = "",
+                    Author = new Author(),
                     ISBN = query.ISBN,
-                    Localisation = "",
                     Title = ""
                 });
             }
@@ -55,7 +54,7 @@ namespace HomeLibrary.Services
         {
             return new Book
             {
-                Author = bookInformation.Author,
+                Author = new Author { Name = bookInformation.Author },
                 ISBN = bookInformation.ISBN,
                 Title = bookInformation.Title
             };

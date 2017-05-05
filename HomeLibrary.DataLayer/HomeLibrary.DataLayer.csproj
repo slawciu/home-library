@@ -62,6 +62,14 @@
     <Compile Include="Migrations\201704251832176_InitialCreate.Designer.cs">
       <DependentUpon>201704251832176_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705051452408_ComplexArchitecture.cs" />
+    <Compile Include="Migrations\201705051452408_ComplexArchitecture.Designer.cs">
+      <DependentUpon>201705051452408_ComplexArchitecture.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705051459014_ComplexArchitecture2.cs" />
+    <Compile Include="Migrations\201705051459014_ComplexArchitecture2.Designer.cs">
+      <DependentUpon>201705051459014_ComplexArchitecture2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -72,6 +80,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201704251832176_InitialCreate.resx">
       <DependentUpon>201704251832176_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705051452408_ComplexArchitecture.resx">
+      <DependentUpon>201705051452408_ComplexArchitecture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705051459014_ComplexArchitecture2.resx">
+      <DependentUpon>201705051459014_ComplexArchitecture2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

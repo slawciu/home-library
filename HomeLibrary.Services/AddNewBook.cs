@@ -15,9 +15,9 @@ namespace HomeLibrary.Services
         {
             var numberOfAddedItems = _libraryRepository.AddNewBook(new Book
             {
-                Author = query.Author,
+                //Author = query.Author,
                 Title = query.Title,
-                Localisation = query.Localisation,
+                //Localisation = query.Localisation,
                 ISBN = query.ISBN
             });
 

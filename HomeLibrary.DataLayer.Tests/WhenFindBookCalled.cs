@@ -24,11 +24,12 @@ namespace HomeLibrary.DataLayer.Tests
         [Fact]
         public void ShouldReturnExistingBookFromRepositoryIfExists()
         {
-            var existingBook = new Book {Id = 0, Title = "Gra Endera", Author = "Orson Scott Card", Localisation = "Gliwice", ISBN = "9788376482514"};
+            var author = new Author { AuthorId = 1, Name = "Orson Scott",  Surname = "Card"};
+            var existingBook = new Book {Id = 0, Title = "Gra Endera", Author = author, ISBN = "9788376482514"};
             var booksInLibrary = new List<Book>
             {
                 existingBook,
-                new Book {Id = 1, Title = "Cieñ Endera", Author = "Orson Scott Card", Localisation = "Gliwice", ISBN = "9788378397649"}
+                new Book {Id = 1, Title = "Cieñ Endera", Author = author, ISBN = "9788378397649"}
             };
 
             _booksDbSetMock.As<IQueryable<Book>>().Setup(x => x.ElementType).Returns(booksInLibrary.AsQueryable().ElementType);

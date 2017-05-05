@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading.Tasks;
 using Moq;
 using Xunit;
 
@@ -29,10 +25,11 @@ namespace HomeLibrary.DataLayer.Tests
         [Fact]
         public void ShouldReturnBooksFromDbSet()
         {
+            var author = new Author {AuthorId = 1, Name = "Orson Scott", Surname = "Card"};
             var expectedBooks = new List<Book>
             {
-                new Book {Id = 0, Title = "Gra Endera", Author = "Orson Scott Card", Localisation = "Gliwice", ISBN = "9788376482514"},
-                new Book {Id = 1, Title = "Cień Endera", Author = "Orson Scott Card", Localisation = "Gliwice", ISBN = "9788378397649"}
+                new Book {Id = 0, Title = "Gra Endera", Author = author, ISBN = "9788376482514"},
+                new Book {Id = 1, Title = "Cień Endera", Author = author, ISBN = "9788378397649"}
             };
 
             _booksDbSetMock.As<IQueryable<Book>>().Setup(x => x.ElementType).Returns(expectedBooks.AsQueryable().ElementType);
